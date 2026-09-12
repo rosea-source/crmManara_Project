@@ -1,0 +1,93 @@
+<div class="d-flex">
+  <app-sidebar-admin></app-sidebar-admin>
+
+  <div class="content flex-grow-1 p-4 bg-light">
+    <div class="container" style="max-width: 900px;">
+
+      <div *ngIf="!enfant" class="text-center py-5 text-muted">Chargement...</div>
+
+      <div *ngIf="enfant">
+
+        <!-- HEADER -->
+        <div class="d-flex align-items-center gap-3 mb-4">
+          <a [routerLink]="['/admin/users', enfant.parentUserId]"
+             class="btn btn-dark rounded-circle d-flex align-items-center justify-content-center"
+             style="width:42px;height:42px;">
+            <i class="bi bi-arrow-left"></i>
+          </a>
+          <div>
+            <h2 class="fw-bold mb-0">{{ enfant.prenom }} {{ enfant.nom }}</h2>
+            <small class="text-muted">Détails de l'enfant</small>
+          </div>
+        </div>
+
+        <!-- PROFIL -->
+        <div class="card border-0 shadow-sm rounded-4 mb-4 p-4 bg-white">
+          <div class="row g-4">
+            <div class="col-md-6">
+              <div class="border rounded-4 p-3">
+                <small class="text-muted">Nom</small>
+                <div class="fw-semibold mt-1">{{ enfant.nom }}</div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="border rounded-4 p-3">
+                <small class="text-muted">Prénom</small>
+                <div class="fw-semibold mt-1">{{ enfant.prenom }}</div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="border rounded-4 p-3">
+                <small class="text-muted">Date de naissance</small>
+                <div class="fw-semibold mt-1">{{ enfant.dateNaissance || '-' }}</div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="border rounded-4 p-3">
+                <small class="text-muted">Nombre de sessions</small>
+                <div class="fw-semibold mt-1">{{ enfant.inscriptions?.length || 0 }}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SESSIONS -->
+        <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+          <div class="p-3 bg-white border-bottom">
+            <h5 class="fw-bold mb-0">Sessions inscrites</h5>
+          </div>
+          <table class="table table-hover align-middle text-center mb-0">
+            <thead class="table-dark">
+              <tr>
+                <th>Activité</th>
+                <th>Date</th>
+                <th>Heure début</th>
+                <th>Heure fin</th>
+                <th>Lieu</th>
+                <th>Statut</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngIf="!enfant.inscriptions || enfant.inscriptions.length === 0">
+                <td colspan="6" class="text-muted py-4">Aucune session</td>
+              </tr>
+              <tr *ngFor="let insc of enfant.inscriptions">
+                <td>{{ insc.activiteTitre }}</td>
+                <td class="text-muted">{{ insc.dateDebut }}</td>
+                <td>{{ insc.heureDebut }}</td>
+                <td>{{ insc.heureFin }}</td>
+                <td>{{ insc.lieu }}</td>
+                <td>
+                  <span [class]="insc.statutPaiement === 'Accepté' ? 'badge bg-success' : 'badge bg-danger'">
+                    {{ insc.statutPaiement }}
+                  </span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

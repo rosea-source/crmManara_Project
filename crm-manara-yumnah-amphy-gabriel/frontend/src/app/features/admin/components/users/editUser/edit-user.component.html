@@ -1,0 +1,107 @@
+<div class="d-flex">
+  <app-sidebar-admin></app-sidebar-admin>
+
+  <div class="content flex-grow-1 p-4 bg-light">
+    <div class="container" style="max-width: 800px;">
+
+      <div class="d-flex align-items-center gap-3 mb-4">
+        <a [routerLink]="['/admin/users', id]" class="btn btn-outline-dark rounded-circle">←</a>
+        <h2 class="fw-bold mb-0">Modifier utilisateur</h2>
+      </div>
+
+      <div *ngIf="!user" class="text-center py-5 text-muted">
+        <div class="spinner-border text-dark"></div>
+      </div>
+
+      <div *ngIf="user">
+
+        <div *ngIf="success" class="alert alert-success rounded-4 mb-3">
+          <i class="bi bi-check-circle me-2"></i>{{ success }}
+        </div>
+        <div *ngIf="error" class="alert alert-danger rounded-4 mb-3">
+          <i class="bi bi-exclamation-circle me-2"></i>{{ error }}
+        </div>
+
+        <div class="card border-0 shadow-sm rounded-4 p-4 bg-white">
+          <form (ngSubmit)="onSubmit()" #f="ngForm">
+            <div class="row g-3">
+
+              <div class="col-md-6">
+                <label class="form-label small fw-bold">Prénom</label>
+                <input type="text" [(ngModel)]="user.prenom" name="prenom"
+                       class="form-control bg-light rounded-3 p-3">
+              </div>
+              <div class="col-md-6">
+                <label class="form-label small fw-bold">Nom</label>
+                <input type="text" [(ngModel)]="user.nom" name="nom"
+                       class="form-control bg-light rounded-3 p-3">
+              </div>
+              <div class="col-12">
+                <label class="form-label small fw-bold">Courriel</label>
+                <input type="email" [(ngModel)]="user.email" name="email"
+                       class="form-control bg-light rounded-3 p-3">
+              </div>
+              <div class="col-12">
+                <label class="form-label small fw-bold">Mot de passe</label>
+                <input type="password" [(ngModel)]="user.password" name="password"
+                       class="form-control bg-light rounded-3 p-3"
+                       placeholder="Laisser vide pour ne pas modifier">
+              </div>
+              <div class="col-12">
+                <label class="form-label small fw-bold">Téléphone</label>
+                <input type="text" [(ngModel)]="user.telephone" name="telephone"
+                       class="form-control bg-light rounded-3 p-3">
+              </div>
+              <div class="col-12">
+                <label class="form-label small fw-bold">Rôle</label>
+                <select [(ngModel)]="user.role" name="role"
+                        class="form-select bg-light rounded-3 p-3">
+                  <option value="ROLE_PARENT">Parent</option>
+                  <option value="ROLE_ANIMATEUR">Animateur</option>
+                  <option value="ROLE_ADMIN">Administrateur</option>
+                </select>
+              </div>
+
+              <ng-container *ngIf="user.role === 'ROLE_PARENT'">
+                <div class="col-12"><hr></div>
+                <div class="col-12">
+                  <label class="form-label small fw-bold">Adresse</label>
+                  <input type="text" [(ngModel)]="user.adresse" name="adresse"
+                         class="form-control bg-light rounded-3 p-3">
+                </div>
+              </ng-container>
+
+              <ng-container *ngIf="user.role === 'ROLE_ANIMATEUR'">
+                <div class="col-12"><hr></div>
+                <div class="col-12">
+                  <label class="form-label small fw-bold">Diplôme</label>
+                  <input type="text" [(ngModel)]="user.diplome" name="diplome"
+                         class="form-control bg-light rounded-3 p-3">
+                </div>
+                <div class="col-12">
+                  <label class="form-label small fw-bold">Spécialité</label>
+                  <input type="text" [(ngModel)]="user.specialite" name="specialite"
+                         class="form-control bg-light rounded-3 p-3">
+                </div>
+                <div class="col-12">
+                  <label class="form-label small fw-bold">Date embauche</label>
+                  <input type="date" [(ngModel)]="user.dateEmbauche" name="dateEmbauche"
+                         class="form-control bg-light rounded-3 p-3">
+                </div>
+              </ng-container>
+
+              <div class="col-12 mt-4">
+                <button type="submit" class="btn btn-dark w-100 rounded-pill py-3 fw-bold"
+                        [disabled]="loading">
+                  <span *ngIf="loading" class="spinner-border spinner-border-sm me-2"></span>
+                  {{ loading ? 'Mise à jour...' : 'Enregistrer les modifications' }}
+                </button>
+              </div>
+
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

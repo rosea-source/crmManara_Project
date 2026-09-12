@@ -1,0 +1,127 @@
+<!-- src/app/features/admin/components/sessions/attentes/attentes.component.html -->
+<div class="d-flex">
+  <app-sidebar-admin></app-sidebar-admin>
+
+  <div class="content flex-grow-1 p-4 bg-light">
+
+    <div *ngIf="!data" class="text-center py-5 text-muted">
+      <div class="spinner-border text-dark me-2"></div> Chargement...
+    </div>
+
+    <div *ngIf="data">
+
+      <!-- HEADER -->
+      <div class="d-flex align-items-center justify-content-between mb-4">
+        <div class="d-flex align-items-center gap-3">
+          <a [routerLink]="['/admin/sessions', sessionId]"
+             class="btn btn-outline-dark rounded-circle">
+            <i class="bi bi-arrow-left"></i>
+          </a>
+          <h2 class="fw-bold mb-0">Liste d'attente</h2>
+        </div>
+        <span class="badge bg-secondary px-3 py-2 rounded-pill">
+          {{ data.inscriptions?.length }} demande(s)
+        </span>
+      </div>
+
+      <!-- LOADING BULK -->
+      <div *ngIf="loadingBulk" class="alert alert-info rounded-3 d-flex align-items-center gap-2 mb-3">
+        <div class="spinner-border spinner-border-sm"></div>
+        Traitement en cours — envoi des confirmations par email...
+      </div>
+
+      <!-- BARRE ACTIONS GROUPÉES -->
+      <div *ngIf="selectedIds.size > 0 && !loadingBulk"
+           class="alert alert-dark rounded-3 d-flex align-items-center justify-content-between mb-3">
+        <span>
+          <i class="bi bi-check2-square me-2"></i>
+          <strong>{{ selectedIds.size }}</strong> inscription(s) sélectionnée(s)
+        </span>
+        <div class="d-flex gap-2">
+          <button class="btn btn-success btn-sm rounded-pill px-3"
+                  (click)="accepterSelection()">
+            <i class="bi bi-check-lg me-1"></i> Accepter la sélection
+          </button>
+          <button class="btn btn-outline-danger btn-sm rounded-pill px-3"
+                  (click)="refuserSelection()">
+            <i class="bi bi-x-lg me-1"></i> Refuser la sélection
+          </button>
+        </div>
+      </div>
+
+      <!-- TABLE -->
+      <div class="card border-0 shadow-sm rounded-4 p-4 bg-white">
+        <table class="table table-hover align-middle">
+          <thead class="table-light">
+            <tr>
+              <!-- Checkbox tout sélectionner -->
+              <th style="width: 40px;">
+                <input type="checkbox"
+                       class="form-check-input"
+                       [checked]="allSelected"
+                       (change)="toggleAll($any($event.target).checked)">
+              </th>
+              <th>Enfant</th>
+              <th>Parent</th>
+              <th>Session</th>
+              <th>Statut</th>
+              <th class="text-end">Décision</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngIf="data.inscriptions?.length === 0">
+              <td colspan="6" class="text-center text-muted py-4">Aucune demande</td>
+            </tr>
+
+            <tr *ngFor="let i of data.inscriptions"
+                [class.table-active]="selectedIds.has(i.id)">
+
+              <!-- Checkbox ligne -->
+              <td>
+                <input type="checkbox"
+                       class="form-check-input"
+                       [checked]="selectedIds.has(i.id)"
+                       (change)="toggleSelect(i.id)">
+              </td>
+
+              <td>
+                <div class="fw-bold">{{ i.enfantPrenom }} {{ i.enfantNom }}</div>
+                <small class="text-muted">{{ i.enfantAge }}</small>
+              </td>
+              <td>{{ i.parentNom }}</td>
+              <td>{{ i.activiteTitre }}</td>
+              <td>
+                <span class="badge bg-secondary">
+                  {{ i.statutPaiement || 'En attente' }}
+                </span>
+              </td>
+
+              <td class="text-end">
+                <!-- Spinner sur cette ligne -->
+                <div *ngIf="loadingId === i.id" class="d-flex align-items-center justify-content-end gap-2 text-muted">
+                  <div class="spinner-border spinner-border-sm"></div>
+                  <small>Envoi email...</small>
+                </div>
+
+                <div *ngIf="loadingId !== i.id" class="d-flex gap-2 justify-content-end">
+                  <button class="btn btn-success btn-sm rounded-pill px-3"
+                          (click)="accepter(i.id)"
+                          [disabled]="loadingBulk">
+                    Accepter
+                  </button>
+                  <button class="btn btn-outline-danger btn-sm rounded-pill px-3"
+                          (click)="refuser(i.id)"
+                          [disabled]="loadingBulk">
+                    Refuser
+                  </button>
+                </div>
+              </td>
+
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+</div>

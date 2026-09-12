@@ -1,0 +1,69 @@
+<div class="d-flex">
+  <app-sidebar-admin></app-sidebar-admin>
+
+  <div class="content flex-grow-1 p-4 bg-light">
+
+    <h1 class="fw-bold mb-4">Incidents</h1>
+
+    <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+      <div class="p-3 bg-white border-bottom">
+        <h5 class="fw-bold mb-3">Historique des incidents</h5>
+
+        <!-- Barre de recherche + filtre -->
+        <div class="d-flex gap-2 flex-wrap">
+          <input
+            type="text"
+            class="form-control w-auto flex-grow-1"
+            placeholder="Rechercher un enfant, activité..."
+            [(ngModel)]="searchTerm"
+          />
+          <select class="form-select w-auto" [(ngModel)]="selectedGravite">
+            <option value="">Toutes les gravités</option>
+            <option value="Haute">Haute</option>
+            <option value="Moyenne">Moyenne</option>
+            <option value="Faible">Faible</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="table-responsive p-3">
+        <table class="table table-hover align-middle mb-0">
+          <thead class="table-dark">
+            <tr>
+              <th>Enfant</th>
+              <th>Activité</th>
+              <th>Description</th>
+              <th>Gravité</th>
+              <th>Date</th>
+              <th>Vu par parent</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngIf="filteredIncidents.length === 0">
+              <td colspan="6" class="text-center text-muted py-4">
+                Aucun incident enregistré
+              </td>
+            </tr>
+            <tr *ngFor="let i of filteredIncidents">
+              <td class="fw-semibold">{{ i.enfantNomComplet }}</td>
+              <td>{{ i.activiteTitre }}</td>
+              <td>{{ i.description }}</td>
+              <td>
+                <span [class]="'badge ' + getBadgeClass(i.gravite)">
+                  {{ i.gravite }}
+                </span>
+              </td>
+              <td class="text-muted small">{{ i.dateLabel }}</td>
+              <td>
+                <span [class]="'badge bg-' + i.etatParentClass">
+                  {{ i.etatParentLabel }}
+                </span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</div>

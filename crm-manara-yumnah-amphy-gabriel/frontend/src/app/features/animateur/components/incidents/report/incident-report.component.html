@@ -1,0 +1,111 @@
+<!-- src/app/features/animateur/components/incidents/report/incident-report.component.html -->
+<div class="d-flex">
+
+  <app-sidebar-animateur></app-sidebar-animateur>
+
+  <div class="content flex-grow-1 p-4">
+    <div class="container bg-white p-4 shadow-sm rounded-4" style="max-width: 800px;">
+
+      <h2 class="fw-bold">Signaler un incident</h2>
+      <p class="text-muted mb-4">Remplissez le formulaire.</p>
+
+      <div *ngIf="loading" class="text-center py-4">
+        <div class="spinner-border"></div>
+      </div>
+
+      <form *ngIf="!loading" (ngSubmit)="submit()">
+
+        <!-- ENFANT -->
+        <div class="mb-3">
+          <label class="fw-bold">Enfant</label>
+          <select [(ngModel)]="form.enfantId"
+                  name="enfantId"
+                  (ngModelChange)="onEnfantChange()"
+                  class="form-select rounded-pill">
+            <option [ngValue]="null">Choisir un enfant...</option>
+            <!-- Déduplique les enfants (un enfant peut avoir plusieurs sessions) -->
+            <ng-container *ngFor="let e of allEnfants">
+              <option *ngIf="isFirstOccurrence(e.id)"
+                      [ngValue]="e.id">
+                {{ e.prenom }} {{ e.nom }}
+              </option>
+            </ng-container>
+          </select>
+        </div>
+
+        <!-- SESSION — filtrée selon l'enfant choisi -->
+        <div class="mb-3">
+          <label class="fw-bold">Session</label>
+          <select [(ngModel)]="form.sessionId"
+                  name="sessionId"
+                  class="form-select rounded-pill"
+                  [disabled]="!form.enfantId || sessionsDisponibles.length === 0">
+            <option [ngValue]="null">
+              {{ !form.enfantId ? 'Choisir un enfant d\'abord' : 'Choisir une session...' }}
+            </option>
+            <option *ngFor="let s of sessionsDisponibles" [ngValue]="s.id">
+              {{ s.titre }} — {{ s.dateDebut }}
+            </option>
+          </select>
+          <small *ngIf="form.enfantId && sessionsDisponibles.length === 0"
+                 class="text-danger">
+            Aucune session disponible pour cet enfant.
+          </small>
+        </div>
+
+        <!-- DESTINATAIRE -->
+        <div class="mb-3">
+          <label class="fw-bold">Destinataire</label>
+          <select [(ngModel)]="form.destinataire"
+                  name="destinataire"
+                  class="form-select rounded-pill">
+            <option value="admin">Admin</option>
+            <option value="parent">Parent</option>
+            <option value="all">Les deux</option>
+          </select>
+        </div>
+
+        <!-- GRAVITÉ -->
+        <div class="mb-3">
+          <label class="fw-bold">Gravité</label>
+          <select [(ngModel)]="form.gravite"
+                  name="gravite"
+                  class="form-select rounded-pill">
+            <option value="Faible">Faible</option>
+            <option value="Moyenne">Moyenne</option>
+            <option value="Haute">Haute</option>
+          </select>
+        </div>
+
+        <!-- DESCRIPTION -->
+        <div class="mb-4">
+          <label class="fw-bold">Description</label>
+          <textarea [(ngModel)]="form.description"
+                    name="description"
+                    class="form-control rounded-4"
+                    rows="4"
+                    placeholder="Décrivez l'incident (minimum 5 caractères)..."
+                    required></textarea>
+          <small class="text-muted">{{ form.description.length }} / 1000</small>
+        </div>
+
+        <!-- MESSAGES — visibles même après reset du formulaire -->
+        <div *ngIf="successMessage" class="alert alert-success rounded-3 mt-3">
+          <i class="bi bi-check-circle me-2"></i>{{ successMessage }}
+        </div>
+        <div *ngIf="errorMessage" class="alert alert-danger rounded-3 mt-3">
+          <i class="bi bi-exclamation-triangle me-2"></i>{{ errorMessage }}
+        </div>
+
+        <div class="text-end">
+          <button type="submit"
+                  class="btn btn-dark rounded-pill px-4"
+                  [disabled]="!form.enfantId || !form.sessionId || !form.description.trim()">
+            <i class="bi bi-send me-2"></i> Envoyer
+          </button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>

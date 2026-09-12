@@ -1,0 +1,164 @@
+<!-- src/app/features/accueil/accueil.component.html -->
+<app-navbar></app-navbar>
+
+
+
+
+<main>
+
+  <!-- ── HERO ─────────────────────────────────────────────────────────── -->
+  <section class="hero-section text-white d-flex align-items-center">
+    <div class="container">
+      <div class="row align-items-center">
+
+        <!-- TEXTE -->
+        <div class="col-lg-7 text-center text-lg-start">
+          
+          <h1 class="display-3 fw-bold mb-4 anim-fade-up delay-1">
+            Gérez vos inscriptions en toute <span class="text-warning">simplicité</span>.
+          </h1>
+          <p class="lead mb-5 opacity-75 anim-fade-up delay-2">
+            Une plateforme moderne pour inscrire vos enfants aux activités,
+            consulter les plannings et suivre leur parcours au centre Manara.
+          </p>
+          <div class="d-flex flex-column flex-sm-row gap-3 justify-content-center justify-content-lg-start anim-fade-up delay-3">
+            <a routerLink="/register"
+               class="btn btn-warning btn-lg px-5 py-3 fw-bold shadow rounded-pill anim-pulse-btn">
+              <i class="bi bi-person-plus me-2"></i>Créer un compte
+            </a>
+            <a routerLink="/login" class="btn btn-outline-light btn-lg px-5 py-3 rounded-pill hover-lift">
+              Se connecter
+            </a>
+          </div>
+
+          <!-- STATS -->
+          <div class="mt-5 d-flex align-items-center justify-content-center justify-content-lg-start gap-4 anim-fade-up delay-4">
+            <div class="text-center text-lg-start anim-count delay-4">
+              <h4 class="mb-0 fw-bold">+500</h4>
+              <small class="text-white-50">Familles</small>
+            </div>
+            <div class="vr opacity-25" style="height:40px;"></div>
+            <div class="text-center text-lg-start anim-count delay-5">
+              <h4 class="mb-0 fw-bold">12</h4>
+              <small class="text-white-50">Activités</small>
+            </div>
+            <div class="vr opacity-25" style="height:40px;"></div>
+            <div class="text-center text-lg-start anim-count delay-6">
+              <h4 class="mb-0 fw-bold">30+</h4>
+              <small class="text-white-50">Animateurs</small>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FEATURES ──────────────────────────────────────────────────────── -->
+  <section class="py-5 bg-white">
+    <div class="container py-5">
+      <div class="text-center mb-5 anim-fade-up">
+        <h2 class="fw-bold display-5">Tout ce dont vous avez besoin</h2>
+        <div class="mx-auto bg-warning mt-2" style="height:4px;width:60px;border-radius:2px;"></div>
+      </div>
+      <div class="row g-4">
+        <div class="col-md-4 anim-fade-up delay-1">
+          <div class="stats-box h-100 hover-card border-0 hover-lift">
+            <div class="mb-3 text-warning feature-icon-wrap"><i class="bi bi-lightning-charge-fill display-5"></i></div>
+            <h4 class="fw-bold">Inscription rapide</h4>
+            <p class="text-muted">Créez un compte et inscrivez vos enfants aux activités en quelques clics.</p>
+          </div>
+        </div>
+        <div class="col-md-4 anim-fade-up delay-2">
+          <div class="stats-box h-100 hover-card border-0 hover-lift">
+            <div class="mb-3 text-warning feature-icon-wrap"><i class="bi bi-calendar3 display-5"></i></div>
+            <h4 class="fw-bold">Plannings Live</h4>
+            <p class="text-muted">Consultez les horaires et suivez les sessions à venir en temps réel.</p>
+          </div>
+        </div>
+        <div class="col-md-4 anim-fade-up delay-3">
+          <div class="stats-box h-100 hover-card border-0 hover-lift">
+            <div class="mb-3 text-warning feature-icon-wrap"><i class="bi bi-bell-fill display-5"></i></div>
+            <h4 class="fw-bold">Notifications</h4>
+            <p class="text-muted">Recevez des confirmations et rappels automatiques pour ne rien manquer.</p>
+          </div>
+        </div>
+        <div class="col-md-4 anim-fade-up delay-2">
+          <div class="stats-box h-100 hover-card border-0 hover-lift">
+            <div class="mb-3 text-warning feature-icon-wrap"><i class="bi bi-search display-5"></i></div>
+            <h4 class="fw-bold">Catalogue complet</h4>
+            <p class="text-muted">Découvrez toutes les activités éducatives, sportives et culturelles.</p>
+          </div>
+        </div>
+        <div class="col-md-4 anim-fade-up delay-3">
+          <div class="stats-box h-100 hover-card border-0 hover-lift">
+            <div class="mb-3 text-warning feature-icon-wrap"><i class="bi bi-graph-up-arrow display-5"></i></div>
+            <h4 class="fw-bold">Suivi & Reporting</h4>
+            <p class="text-muted">Accédez à vos indicateurs clés et à l'historique complet.</p>
+          </div>
+        </div>
+        <div class="col-md-4 anim-fade-up delay-4">
+          <div class="stats-box h-100 hover-card border-0 hover-lift">
+            <div class="mb-3 text-warning feature-icon-wrap"><i class="bi bi-chat-dots-fill display-5"></i></div>
+            <h4 class="fw-bold">Communication</h4>
+            <p class="text-muted">Échangez directement avec l'administration via notre messagerie.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── ÉTAPES ─────────────────────────────────────────────────────────── -->
+  <section class="py-5 bg-light">
+    <div class="container py-4">
+      <div class="text-center mb-5 anim-fade-up">
+        <h2 class="fw-bold display-5">Comment ça marche ?</h2>
+        <div class="mx-auto bg-warning mt-2" style="height:4px;width:60px;border-radius:2px;"></div>
+      </div>
+      <div class="row g-4 text-center">
+        <div class="col-md-4 anim-fade-up delay-1">
+          <div class="stats-box border-0 h-100 hover-lift">
+            <div class="bg-warning text-dark rounded-circle d-inline-flex align-items-center justify-content-center mb-3 fw-bold fs-4"
+                 style="width:56px;height:56px;">1</div>
+            <h5 class="fw-bold">Créez votre compte</h5>
+            <p class="text-muted">Inscrivez-vous en tant que parent et ajoutez le profil de vos enfants.</p>
+          </div>
+        </div>
+        <div class="col-md-4 anim-fade-up delay-2">
+          <div class="stats-box border-0 h-100 hover-lift">
+            <div class="bg-warning text-dark rounded-circle d-inline-flex align-items-center justify-content-center mb-3 fw-bold fs-4"
+                 style="width:56px;height:56px;">2</div>
+            <h5 class="fw-bold">Choisissez une activité</h5>
+            <p class="text-muted">Parcourez le catalogue, filtrez par horaire et choisissez la session idéale.</p>
+          </div>
+        </div>
+        <div class="col-md-4 anim-fade-up delay-3">
+          <div class="stats-box border-0 h-100 hover-lift">
+            <div class="bg-warning text-dark rounded-circle d-inline-flex align-items-center justify-content-center mb-3 fw-bold fs-4"
+                 style="width:56px;height:56px;">3</div>
+            <h5 class="fw-bold">Confirmez l'inscription</h5>
+            <p class="text-muted">Sélectionnez votre enfant, confirmez et recevez une notification de validation.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CTA FINAL ──────────────────────────────────────────────────────── -->
+  <section class="py-5 bg-white">
+    <div class="container py-3 text-center">
+      <div class="p-5 rounded-5 shadow text-white anim-fade-up"
+           style="background-color:#0f172a;">
+        <h3 class="display-6 fw-bold">Prêt à rejoindre la communauté Manara ?</h3>
+        <p class="lead opacity-75 mb-4 mt-3">Inscrivez vos enfants dès maintenant.</p>
+        <a routerLink="/register"
+           class="btn btn-warning btn-lg px-5 py-3 fw-bold rounded-pill anim-pulse-btn">
+          Commencer maintenant
+        </a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<app-footer></app-footer>

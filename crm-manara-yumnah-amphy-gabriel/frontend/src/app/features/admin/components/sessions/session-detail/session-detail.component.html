@@ -1,0 +1,152 @@
+<div class="d-flex">
+  <app-sidebar-admin></app-sidebar-admin>
+
+  <div class="content flex-grow-1 p-4 bg-light">
+
+    <div *ngIf="!session" class="text-center py-5 text-muted">
+      Chargement...
+    </div>
+
+    <div *ngIf="session">
+
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <div class="d-flex align-items-center gap-3">
+          <a routerLink="/admin/sessions"
+             class="btn btn-outline-dark rounded-circle d-flex align-items-center justify-content-center"
+             style="width:42px;height:42px;">
+            <i class="bi bi-arrow-left"></i>
+          </a>
+          <div>
+            <h2 class="fw-bold mb-0">Détails de la session</h2>
+            <small class="text-muted">Vue complète de la session programmée</small>
+          </div>
+        </div>
+
+        <div class="d-flex gap-2">
+          <a [routerLink]="['/admin/sessions', id, 'edit']"
+             class="btn btn-dark rounded-pill px-4">
+            Modifier
+          </a>
+          <button class="btn btn-outline-warning rounded-pill px-4"
+                  (click)="fermerSession()">
+            Fermer session
+          </button>
+          <!-- ✅ Bouton supprimer -->
+          <button class="btn btn-danger rounded-pill px-4"
+                  (click)="supprimerSession()"
+                  [disabled]="deleting">
+            <span *ngIf="deleting" class="spinner-border spinner-border-sm me-2"></span>
+            <i *ngIf="!deleting" class="bi bi-trash me-2"></i>
+            {{ deleting ? 'Suppression...' : 'Supprimer' }}
+          </button>
+        </div>
+      </div>
+
+      <!-- ERREUR SUPPRESSION -->
+      <div *ngIf="error" class="alert alert-danger rounded-4 mb-3">
+        <i class="bi bi-exclamation-circle me-2"></i>{{ error }}
+      </div>
+
+      <div class="row g-4">
+
+        <div class="col-md-7">
+          <div class="card border-0 shadow rounded-4 overflow-hidden">
+
+            <div class="bg-dark text-white p-4">
+              <h4 class="fw-bold mb-1">{{ session.activiteTitre || 'Session' }}</h4>
+              <small>Informations générales</small>
+            </div>
+
+            <div class="p-4 bg-white">
+              <div class="row g-3">
+
+                <div class="col-md-6">
+                  <div class="border rounded-4 p-3">
+                    <small class="text-muted">Date début</small>
+                    <div class="fw-semibold mt-1">{{ session.dateDebut || '-' }}</div>
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <div class="border rounded-4 p-3">
+                    <small class="text-muted">Date fin</small>
+                    <div class="fw-semibold mt-1">{{ session.dateFin || '-' }}</div>
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <div class="border rounded-4 p-3">
+                    <small class="text-muted">Horaire</small>
+                    <div class="fw-semibold mt-1">{{ session.heureDebut }} - {{ session.heureFin }}</div>
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <div class="border rounded-4 p-3">
+                    <small class="text-muted">Capacité</small>
+                    <div class="fw-semibold mt-1">{{ session.capaciteMax }} places</div>
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <div class="border rounded-4 p-3">
+                    <small class="text-muted">Animateur</small>
+                    <div class="fw-semibold mt-1">{{ session.animateurNom || '-' }}</div>
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <div class="border rounded-4 p-3">
+                    <small class="text-muted">Lieu</small>
+                    <div class="fw-semibold mt-1">{{ session.lieu || '-' }}</div>
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <div class="border rounded-4 p-3">
+                    <small class="text-muted">Statut</small>
+                    <div class="fw-semibold mt-1">
+                      <span [class]="'badge px-3 py-2 ' + getStatutClass(session.statut)">
+                        {{ session.statut }}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+              <div class="d-flex gap-2 mt-4">
+                <a [routerLink]="['/admin/sessions', id, 'attentes']"
+                   class="btn btn-outline-dark rounded-pill px-4">
+                  Liste d'attente
+                </a>
+                <a [routerLink]="['/admin/sessions', id, 'inscrits']"
+                   class="btn btn-dark rounded-pill px-4">
+                  Inscrits
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-5">
+          <a [routerLink]="['/admin/sessions', id, 'inscrits']"
+             class="text-decoration-none">
+            <div class="card border-0 shadow rounded-4 bg-dark text-white p-4 h-100">
+              <h5 class="fw-bold mb-4">Taux de remplissage</h5>
+              <div class="display-4 fw-bold mb-3">{{ inscrits }} / {{ session.capaciteMax }}</div>
+              <div class="progress mb-3" style="height:10px;">
+                <div class="progress-bar bg-success" [style.width.%]="pourcentage"></div>
+              </div>
+              <p class="mb-2">{{ (session.capaciteMax - inscrits) }} places restantes</p>
+              <small class="opacity-75">
+                Voir les enfants inscrits <i class="bi bi-arrow-right"></i>
+              </small>
+            </div>
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

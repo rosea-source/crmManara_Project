@@ -1,0 +1,73 @@
+<!-- src/app/shared/components/navbar/navbar.component.html -->
+<header>
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background-color:#0f172a !important;">
+    <div class="container">
+
+      <a class="navbar-brand d-flex align-items-center gap-2" routerLink="/">
+        <img src="assets/images/logo.png" alt="Logo Manara" class="logo-box">
+        <span>Manara</span>
+      </a>
+
+      <button class="navbar-toggler" type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#navbarContent">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarContent">
+
+        <ul class="navbar-nav mx-auto">
+          <li class="nav-item">
+            <a class="nav-link px-4 py-2 fw-medium" style="font-size:1.1rem;"
+               routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+               Accueil
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link px-4 py-2 fw-medium" style="font-size:1.1rem;"
+               routerLink="/evenements" routerLinkActive="active">
+               Événements
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link px-4 py-2 fw-medium" style="font-size:1.1rem;"
+               routerLink="/a-propos" routerLinkActive="active">
+               À propos
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link px-4 py-2 fw-medium" style="font-size:1.1rem;"
+               routerLink="/contact" routerLinkActive="active">
+               Contact
+            </a>
+          </li>
+        </ul>
+
+        <!-- NON connecté -->
+        <div class="d-flex gap-2" *ngIf="!auth.isLoggedIn()">
+          <a routerLink="/login"    class="btn btn-warning btn-sm fw-bold">Connexion</a>
+          <a routerLink="/register" class="btn btn-warning btn-sm fw-bold">Inscription</a>
+        </div>
+
+        <!-- CONNECTÉ : prénom + dashboard + déconnexion -->
+         <li class="nav-item"></li>
+        <div class="d-flex gap-2 align-items-center" *ngIf="auth.isLoggedIn()">
+          <!-- Tableau de bord → route selon le rôle -->
+          <a [routerLink]="dashboardRoute"
+             class="nav-link px-4 py-2 fw-medium text-white" style="font-size:1.1rem;">
+             Tableau de bord
+          </a>
+          
+          <span class="text-white-50 small">Bonjour, {{ auth.getPrenom() }}</span>
+
+
+          <button class="btn btn-outline-warning btn-sm fw-bold"
+                  (click)="auth.logout()">
+            Déconnexion
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </nav>
+</header>

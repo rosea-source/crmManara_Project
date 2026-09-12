@@ -1,0 +1,51 @@
+<app-navbar></app-navbar>
+
+<main class="container py-5">
+
+  <div class="text-center mb-5">
+    <h1 class="fw-bold display-5">Événements</h1>
+    <p class="text-muted fs-5">Annonces importantes et célébrations de la communauté</p>
+  </div>
+
+  <!-- LISTE -->
+  <div class="d-flex flex-column gap-4">
+    <div *ngFor="let event of events" class="card border-0 shadow-sm overflow-hidden hover-card">
+      <div class="row g-0 align-items-stretch">
+
+        <!-- IMAGE -->
+        <div class="col-md-6">
+          <img [src]="event.imageUrl"
+               class="w-100 h-100"
+               style="object-fit: cover; min-height: 250px;"
+               alt="{{ event.title }}">
+        </div>
+
+        <!-- CONTENU -->
+        <div class="col-md-6">
+          <div class="card-body p-4 d-flex flex-column h-100">
+            <span class="badge bg-warning text-dark mb-2">
+              <i class="bi bi-megaphone-fill me-1"></i>
+              Événement important
+            </span>
+            <h4 class="fw-bold mb-3">{{ event.title }}</h4>
+            <p class="text-muted flex-grow-1">{{ event.description }}</p>
+            <div class="text-muted small mt-2">
+              <i class="bi bi-calendar-event me-2"></i>
+              {{ event.date }}
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- EMPTY STATE -->
+  <div class="text-center mt-5" *ngIf="events.length === 0">
+    <i class="bi bi-megaphone fs-1 text-muted"></i>
+    <p class="text-muted mt-3">Aucune annonce pour le moment</p>
+  </div>
+
+</main>
+
+<app-footer></app-footer>

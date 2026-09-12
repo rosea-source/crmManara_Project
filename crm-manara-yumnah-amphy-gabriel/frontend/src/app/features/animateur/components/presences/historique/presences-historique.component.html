@@ -1,0 +1,146 @@
+<!-- src/app/features/animateur/components/presences/historique/presences-historique.component.html -->
+<div class="d-flex">
+
+  <app-sidebar-animateur></app-sidebar-animateur>
+
+  <div class="content flex-grow-1 p-4 p-lg-5 bg-light">
+
+    <!-- HEADER -->
+    <div class="d-flex align-items-center gap-3 mb-5">
+      <a routerLink="/animateur/presences"
+         class="btn btn-outline-dark rounded-circle shadow-sm">
+        <i class="bi bi-arrow-left"></i>
+      </a>
+      <div>
+        <h2 class="fw-bold mb-0">Historique des présences</h2>
+        <p class="text-muted mb-0">Toutes les présences enregistrées</p>
+      </div>
+    </div>
+
+    <!-- LOADING -->
+    <div *ngIf="loading" class="text-center py-5">
+      <div class="spinner-border text-dark"></div>
+    </div>
+
+    <div *ngIf="!loading">
+
+      <!-- STATS (sur la sélection filtrée) -->
+      <div class="row g-3 mb-4">
+        <div class="col-md-4">
+          <div class="card border-0 shadow-sm rounded-4 p-3 text-center bg-white">
+            <div class="fs-2 fw-bold">{{ presencesFiltrees.length }}</div>
+            <small class="text-muted">Total</small>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card border-0 shadow-sm rounded-4 p-3 text-center bg-white">
+            <div class="fs-2 fw-bold text-success">{{ totalPresents }}</div>
+            <small class="text-muted">Présents</small>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card border-0 shadow-sm rounded-4 p-3 text-center bg-white">
+            <div class="fs-2 fw-bold text-danger">{{ totalAbsents }}</div>
+            <small class="text-muted">Absents</small>
+          </div>
+        </div>
+      </div>
+
+      <!-- FILTRES -->
+      <div class="card border-0 shadow-sm rounded-4 p-4 mb-4 bg-white">
+        <div class="row g-3 align-items-end">
+
+          <!-- Filtre session -->
+          <div class="col-md-4">
+            <label class="form-label fw-bold small text-uppercase text-muted">
+              <i class="bi bi-journal-text me-1"></i>Session
+            </label>
+            <select [(ngModel)]="filtreSession" class="form-select border-0 bg-light rounded-pill">
+              <option value="">Toutes les sessions</option>
+              <option *ngFor="let s of sessionsDisponibles" [value]="s">{{ s }}</option>
+            </select>
+          </div>
+
+          <!-- Filtre date -->
+          <div class="col-md-4">
+            <label class="form-label fw-bold small text-uppercase text-muted">
+              <i class="bi bi-calendar3 me-1"></i>Date
+            </label>
+            <select [(ngModel)]="filtreDate" class="form-select border-0 bg-light rounded-pill">
+              <option value="">Toutes les dates</option>
+              <option *ngFor="let d of datesDisponibles" [value]="d">{{ d }}</option>
+            </select>
+          </div>
+
+          <!-- Filtre statut -->
+          <div class="col-md-2">
+            <label class="form-label fw-bold small text-uppercase text-muted">
+              <i class="bi bi-funnel me-1"></i>Statut
+            </label>
+            <select [(ngModel)]="filtreStatut" class="form-select border-0 bg-light rounded-pill">
+              <option value="">Tous</option>
+              <option value="Présent">Présent</option>
+              <option value="Absent">Absent</option>
+              <option value="Retard">Retard</option>
+            </select>
+          </div>
+
+          <!-- Reset -->
+          <div class="col-md-2">
+            <button class="btn btn-outline-dark w-100 rounded-pill"
+                    (click)="resetFiltres()">
+              <i class="bi bi-x-circle me-1"></i>Réinitialiser
+            </button>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- TABLE -->
+      <div class="card border-0 shadow-sm rounded-4 overflow-hidden bg-white">
+
+        <div class="p-3 border-bottom d-flex justify-content-between align-items-center">
+          <h5 class="fw-bold mb-0">Liste complète</h5>
+          <span class="badge bg-dark rounded-pill">
+            {{ presencesFiltrees.length }} résultat(s)
+          </span>
+        </div>
+
+        <!-- Vide -->
+        <div *ngIf="presencesFiltrees.length === 0"
+             class="text-center text-muted py-5">
+          <i class="bi bi-inbox fs-1"></i>
+          <p class="mt-3">Aucune présence pour ces critères</p>
+        </div>
+
+        <!-- Tableau -->
+        <table class="table align-middle mb-0" *ngIf="presencesFiltrees.length > 0">
+          <thead class="table-light text-uppercase small">
+            <tr>
+              <th class="ps-4">Enfant</th>
+              <th>Activité</th>
+              <th>Date session</th>
+              <th class="text-center">Statut</th>
+              <th>Note</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let p of presencesFiltrees">
+              <td class="ps-4 fw-bold">{{ p.enfantNom }}</td>
+              <td class="text-muted">{{ p.activiteTitre }}</td>
+              <td>{{ p.sessionDate }}</td>
+              <td class="text-center">
+                <span class="badge rounded-pill" [ngClass]="getStatutClass(p.statut)">
+                  {{ p.statut }}
+                </span>
+              </td>
+              <td class="text-muted small">{{ p.noteAnimateur }}</td>
+            </tr>
+          </tbody>
+        </table>
+
+      </div>
+    </div>
+
+  </div>
+</div>

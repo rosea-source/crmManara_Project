@@ -1,0 +1,104 @@
+<div class="d-flex min-vh-100">
+  <app-sidebar-parent></app-sidebar-parent>
+
+  <main class="content flex-grow-1 p-4 p-md-5 bg-light">
+
+    <div class="d-flex align-items-center gap-3 mb-5">
+      <a routerLink="/parent/children/list" class="btn btn-outline-dark rounded-circle shadow-sm">
+        <i class="bi bi-arrow-left"></i>
+      </a>
+      <h2 class="fw-bold mb-0">Nouvel Enfant</h2>
+    </div>
+
+    <div class="row justify-content-center">
+      <div class="col-lg-7">
+        <div class="card border-0 shadow-sm rounded-4 bg-white p-4 p-lg-5">
+
+          <form (ngSubmit)="onSubmit()" #f="ngForm" novalidate>
+            <div class="row g-3">
+
+              <div class="col-md-6">
+                <label class="form-label fw-bold small text-secondary">Prénom *</label>
+                <input type="text"
+                       class="form-control bg-light border-0 rounded-3 p-3"
+                       [(ngModel)]="enfant.prenom"
+                       name="prenom"
+                       #prenom="ngModel"
+                       pattern="[a-zA-ZÀ-ÿ\s\-']+"
+                       required>
+                <div *ngIf="prenom.invalid && prenom.touched" class="text-danger small mt-1">
+                  <span *ngIf="prenom.errors?.['required']">Le prénom est obligatoire.</span>
+                  <span *ngIf="prenom.errors?.['pattern']">Lettres seulement.</span>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <label class="form-label fw-bold small text-secondary">Nom *</label>
+                <input type="text"
+                       class="form-control bg-light border-0 rounded-3 p-3"
+                       [(ngModel)]="enfant.nom"
+                       name="nom"
+                       #nom="ngModel"
+                       pattern="[a-zA-ZÀ-ÿ\s\-']+"
+                       required>
+                <div *ngIf="nom.invalid && nom.touched" class="text-danger small mt-1">
+                  <span *ngIf="nom.errors?.['required']">Le nom est obligatoire.</span>
+                  <span *ngIf="nom.errors?.['pattern']">Lettres seulement.</span>
+                </div>
+              </div>
+
+              <div class="col-12">
+                <label class="form-label fw-bold small text-secondary">Date de naissance *</label>
+                <input type="date"
+                       class="form-control bg-light border-0 rounded-3 p-3"
+                       [(ngModel)]="enfant.dateNaissance"
+                       name="dateNaissance"
+                       #dateNaissance="ngModel"
+                       required>
+                <div *ngIf="dateNaissance.invalid && dateNaissance.touched" class="text-danger small mt-1">
+                  La date de naissance est obligatoire.
+                </div>
+              </div>
+
+              <div class="col-12">
+                <label class="form-label fw-bold small text-secondary">Allergies</label>
+                <textarea class="form-control bg-light border-0 rounded-3 p-3"
+                          rows="2"
+                          placeholder="Ex: arachides, lactose..."
+                          [(ngModel)]="enfant.allergies"
+                          name="allergies"></textarea>
+              </div>
+
+              <div class="col-12">
+                <label class="form-label fw-bold small text-secondary">Notes médicales</label>
+                <textarea class="form-control bg-light border-0 rounded-3 p-3"
+                          rows="3"
+                          placeholder="Informations importantes..."
+                          [(ngModel)]="enfant.notesMedicales"
+                          name="notesMedicales"></textarea>
+              </div>
+
+            </div>
+
+            <div *ngIf="errorMsg" class="alert alert-danger mt-3 rounded-3">
+              <i class="bi bi-exclamation-triangle me-2"></i>{{ errorMsg }}
+            </div>
+            <div *ngIf="successMsg" class="alert alert-success mt-3 rounded-3">
+              <i class="bi bi-check-circle me-2"></i>{{ successMsg }}
+            </div>
+
+            <div class="d-grid mt-4">
+              <button type="submit"
+                      class="btn btn-dark rounded-pill py-3 fw-bold"
+                      [disabled]="loading">
+                <span *ngIf="loading" class="spinner-border spinner-border-sm me-2"></span>
+                Enregistrer l'enfant
+              </button>
+            </div>
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>

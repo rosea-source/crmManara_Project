@@ -1,0 +1,58 @@
+<div class="d-flex">
+  <app-sidebar-admin></app-sidebar-admin>
+
+  <div class="content flex-grow-1 p-4 bg-light">
+
+    <div class="d-flex align-items-center gap-3 mb-4">
+      <a routerLink="/admin/activites"
+         class="btn btn-outline-dark rounded-circle px-3 py-2">←</a>
+      <h2 class="mb-0 fw-bold">Modifier l'activité</h2>
+    </div>
+
+    <div *ngIf="!activite" class="text-center py-5 text-muted">
+      Chargement...
+    </div>
+
+    <div *ngIf="activite" class="card border-0 shadow-sm rounded-4 p-5 bg-white mx-auto"
+         style="max-width: 700px;">
+      <form (ngSubmit)="onSubmit()" #f="ngForm">
+
+        <div class="mb-4">
+          <label class="form-label fw-bold">Nom de l'activité</label>
+          <input type="text" [(ngModel)]="activite.titre" name="titre"
+                 class="form-control rounded-pill" required>
+        </div>
+
+        <div class="mb-4">
+          <label class="form-label fw-bold">Description</label>
+          <textarea [(ngModel)]="activite.description" name="description"
+                    class="form-control rounded-4" rows="4"></textarea>
+        </div>
+
+        <div class="row mb-4 g-3">
+          <div class="col">
+            <label class="form-label fw-bold">Âge min</label>
+            <input type="number" [(ngModel)]="activite.ageMin" name="ageMin"
+                   class="form-control rounded-pill">
+          </div>
+          <div class="col">
+            <label class="form-label fw-bold">Âge max</label>
+            <input type="number" [(ngModel)]="activite.ageMax" name="ageMax"
+                   class="form-control rounded-pill">
+          </div>
+        </div>
+
+        <div class="text-end d-flex gap-2 justify-content-end">
+          <a routerLink="/admin/activites"
+             class="btn btn-outline-secondary rounded-pill px-5 py-2">Annuler</a>
+          <button type="submit" class="btn btn-primary rounded-pill px-5 py-2"
+                  [disabled]="loading">
+            {{ loading ? 'Mise à jour...' : 'Enregistrer' }}
+          </button>
+        </div>
+
+      </form>
+    </div>
+
+  </div>
+</div>

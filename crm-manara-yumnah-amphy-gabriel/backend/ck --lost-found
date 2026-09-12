@@ -1,0 +1,151 @@
+* [33m33d5440[m[33m ([m[1;31morigin/Amphy-Angular[m[33m, [m[1;32mAmphy-Angular[m[33m)[m premier commit
+* [33md338a8e[m[33m ([m[1;31morigin/angular-version[m[33m, [m[1;31morigin/Herve-Angular[m[33m, [m[1;31morigin/Cirius-Angular[m[33m, [m[1;32mangular-version[m[33m, [m[1;32mHerve-Angular[m[33m, [m[1;32mCirius-Angular[m[33m)[m Restructuration en Monorepo : déplacement backend et ajout frontend
+[31m|[m * [33m938d51d[m[33m ([m[1;31morigin/Herve[m[33m)[m Remplacement de l’accès direct par MessageService.getReceivedMessages()
+[31m|[m * [33md987b71[m Correction de la vue send message après refonte du module Message
+[31m|[m * [33m2ce1353[m Correction de la vue inbox après mise à jour du modèle Message
+[31m|[m * [33m523f80e[m Correction du contrôleur Administrateur pour la gestion des messages
+[31m|[m * [33m5d45ea9[m Refactorisation du service Message après merge avec la branche Cirius
+[31m|[m * [33md00a864[m Correction du repository Message après fusion des branches
+[31m|[m *   [33mf28a49f[m Correction de l’entité Message pour alignement avec la base de données
+[31m|[m [33m|[m[31m\[m  
+[31m|[m [33m|[m[31m/[m  
+[31m|[m[31m/[m[33m|[m   
+[31m|[m * [33m38fa0ed[m Ajouter une interface de messagerie animateur avec AJAX pour l'envoi et la réception de messages
+[31m|[m * [33m0c77502[m Ajouter le modèle send.html pour composer de nouveaux messages dans le panneau d'administration
+[31m|[m * [33m73de569[m Mettre à jour inbox.html : afficher les messages de manière dynamique avec les informations de l'expéditeur
+[31m|[m * [33m0721033[m feat : ajouter la fonctionnalité de messagerie pour Animateur et Administrateur
+[31m|[m * [33mf502ab5[m feat : permettre aux animateurs d'envoyer et de recevoir des messages
+[31m|[m * [33me2d720e[m implémenter MessageService pour envoyer et récupérer les messages des utilisateurs
+[31m|[m * [33m49d7065[m ajouter MessageRepository pour interroger les messages des utilisateurs
+[31m|[m * [33mc637de9[m ajouter une entité Message avec des associations expéditeur et destinataire
+[31m|[m [34m|[m * [33mde5e537[m[33m ([m[1;31morigin/test[m[33m)[m test
+[31m|[m [34m|[m[31m/[m  
+[31m|[m[31m/[m[34m|[m   
+* [34m|[m [33m95c1695[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mCirius[m[33m, [m[1;31morigin/Cirius[m[33m)[m petite correction
+* [34m|[m [33m1bdc17e[m implementation de message
+* [34m|[m [33m969c8cc[m corrections de template /admin au complet
+[34m|[m[34m/[m  
+* [33mfc5aa8d[m correction de page Admin,connexion
+* [33m51a167a[m Dashbord admin
+*   [33md838647[m Merge branch 'Amphy' of git.dti.crosemont.quebec:6236429/crm-manara-yumnah-amphy-gabriel into Cirius
+[36m|[m[1;31m\[m  
+[36m|[m * [33m722281e[m[33m ([m[1;31morigin/Amphy[m[33m)[m Travailler sur animateur
+* [1;31m|[m [33m1ca8d59[m test evenement image
+* [1;31m|[m [33mbe62002[m parametre et correction des html Admin
+[1;31m|[m[1;31m/[m  
+[1;31m|[m * [33m4f8da79[m[33m ([m[1;31morigin/Louca[m[33m)[m feat(animateur): ajout gestion des disponibilités et du profil
+[1;31m|[m[1;31m/[m  
+* [33m98dcb6d[m evenement structure
+*   [33m8c14c21[m Merge branch 'gabriel' of git.dti.crosemont.quebec:6236429/crm-manara-yumnah-amphy-gabriel into Cirius
+[1;33m|[m[1;34m\[m  
+[1;33m|[m * [33m34fca7c[m[33m ([m[1;31morigin/gabriel[m[33m)[m correction de sessions e planning
+* [1;34m|[m [33m41c83fa[m evenement structure
+* [1;34m|[m [33m0e64c5a[m Configuration de logout
+* [1;34m|[m [33me6a4644[m liste d'attente
+[1;34m|[m[1;34m/[m  
+* [33m5ef9995[m systeme de recevoir messages pour parent
+*   [33meee8b25[m Merge branch 'Cirius' of https://git.dti.crosemont.quebec/6236429/crm-manara-yumnah-amphy-gabriel into gabriel
+[1;35m|[m[1;36m\[m  
+[1;35m|[m * [33mb4851f0[m Sessions htmlm
+[1;35m|[m *   [33mc4a366e[m Merge conflit resolve
+[1;35m|[m [31m|[m[32m\[m  
+[1;35m|[m [31m|[m * [33m6d05456[m Login correction
+[1;35m|[m [31m|[m * [33mf61b2f9[m Stop tracking application.properties
+[1;35m|[m * [32m|[m [33mf868d5d[m Login correction
+[1;35m|[m [32m|[m[32m/[m  
+[1;35m|[m *   [33me42e1b2[m Merge branch 'gabriel' of git.dti.crosemont.quebec:6236429/crm-manara-yumnah-amphy-gabriel into Cirius
+[1;35m|[m [33m|[m[34m\[m  
+[1;35m|[m * [34m\[m   [33me649caa[m Merge branch 'Amphy' of git.dti.crosemont.quebec:6236429/crm-manara-yumnah-amphy-gabriel into Cirius
+[1;35m|[m [35m|[m[36m\[m [34m\[m  
+[1;35m|[m [35m|[m * [34m|[m [33m8dec4cc[m worked on dashboard admin
+* [35m|[m [36m|[m [34m|[m [33mc0a071b[m inscription sessions pour parents
+* [35m|[m [36m|[m [34m|[m [33madd642d[m affichage activités parent
+[34m|[m [35m|[m[34m_[m[36m|[m[34m/[m  
+[34m|[m[34m/[m[35m|[m [36m|[m   
+* [35m|[m [36m|[m [33mce2840d[m ajout de criation enfant pour parent
+* [35m|[m [36m|[m [33m22b5529[m login parent et affichage du dashbord
+* [35m|[m [36m|[m [33m17a7dc2[m Merge branch 'Cirius' of https://git.dti.crosemont.quebec/6236429/crm-manara-yumnah-amphy-gabriel into gabriel
+[1;31m|[m[35m\[m[35m|[m [36m|[m 
+[1;31m|[m * [36m|[m [33m9eac71f[m ajout de js
+[1;31m|[m [36m|[m[36m/[m  
+[1;31m|[m * [33m415c423[m ajout de js
+[1;31m|[m * [33m84029a3[m test html parent dashboard
+[1;31m|[m *   [33m1f4134d[m Merge branch 'Cirius' of git.dti.crosemont.quebec:6236429/crm-manara-yumnah-amphy-gabriel into Amphy
+[1;31m|[m [1;33m|[m[1;34m\[m  
+[1;31m|[m [1;33m|[m * [33maa4e927[m html du code admin , activity
+[1;31m|[m * [1;34m|[m [33m3c4c784[m Merge branch 'Cirius' of git.dti.crosemont.quebec:6236429/crm-manara-yumnah-amphy-gabriel into Amphy
+[1;31m|[m [1;35m|[m[1;34m\[m[1;34m|[m 
+[1;31m|[m * [1;34m|[m   [33m6cd4021[m conflit
+[1;31m|[m [31m|[m[32m\[m [1;34m\[m  
+[1;31m|[m * [32m|[m [1;34m|[m [33mf1f7a82[m localhost
+[1;31m|[m * [32m|[m [1;34m|[m   [33m0134639[m change
+[1;31m|[m [33m|[m[34m\[m [32m\[m [1;34m\[m  
+[1;31m|[m * [34m|[m [32m|[m [1;34m|[m [33m144f8f7[m change
+[1;31m|[m * [34m|[m [32m|[m [1;34m|[m   [33mbf552a6[m Merge branch 'Cirius' of git.dti.crosemont.quebec:6236429/crm-manara-yumnah-amphy-gabriel into Amphy
+[1;31m|[m [35m|[m[36m\[m [34m\[m [32m\[m [1;34m\[m  
+[1;31m|[m * [36m|[m [34m|[m [32m|[m [1;34m|[m [33m3b4caef[m modification
+* [36m|[m [36m|[m [34m|[m [32m|[m [1;34m|[m [33mb241062[m modification parent controller
+[1;34m|[m [36m|[m[1;34m_[m[36m|[m[1;34m_[m[34m|[m[1;34m_[m[32m|[m[1;34m/[m  
+[1;34m|[m[1;34m/[m[36m|[m [36m|[m [34m|[m [32m|[m   
+* [36m|[m [36m|[m [34m|[m [32m|[m [33m6ba07b5[m HTML admin
+* [36m|[m [36m|[m [34m|[m [32m|[m [33me415177[m HTML admin
+* [36m|[m [36m|[m [34m|[m [32m|[m [33mb4ba74e[m connection du backend avec frontEnd user Admin
+[32m|[m [36m|[m[32m_[m[36m|[m[32m_[m[34m|[m[32m/[m  
+[32m|[m[32m/[m[36m|[m [36m|[m [34m|[m   
+* [36m|[m [36m|[m [34m|[m   [33med528fb[m Resolve conflicts: kept my Controller/Repo, took server version for others
+[1;31m|[m[34m\[m [36m\[m [36m\[m [34m\[m  
+[1;31m|[m [34m|[m [36m|[m[34m_[m[36m|[m[34m/[m  
+[1;31m|[m [34m|[m[34m/[m[36m|[m [36m|[m   
+[1;31m|[m * [36m|[m [36m|[m [33md8b3c71[m[33m ([m[1;31morigin/yumnah[m[33m)[m Implementation mvc d'activites,session et utilisateur
+[1;31m|[m * [36m|[m [36m|[m   [33m0221ec2[m Merge branch 'Cirius' and kept list.html
+[1;31m|[m [1;33m|[m[36m\[m [36m\[m [36m\[m  
+[1;31m|[m [1;33m|[m [36m|[m [36m|[m[36m/[m  
+[1;31m|[m [1;33m|[m [36m|[m[36m/[m[36m|[m   
+[1;31m|[m * [36m|[m [36m|[m [33m6726ad6[m Try html
+[1;31m|[m * [36m|[m [36m|[m   [33m3e316d1[m Merge branch 'Cirius' of git.dti.crosemont.quebec:6236429/crm-manara-yumnah-amphy-gabriel into yumnah
+[1;31m|[m [1;35m|[m[36m\[m [36m\[m [36m\[m  
+[1;31m|[m [1;35m|[m [36m|[m [36m|[m[36m/[m  
+[1;31m|[m [1;35m|[m [36m|[m[36m/[m[36m|[m   
+[1;31m|[m * [36m|[m [36m|[m   [33mad6cc5b[m Merge branch 'Cirius' of git.dti.crosemont.quebec:6236429/crm-manara-yumnah-amphy-gabriel into yumnah
+[1;31m|[m [31m|[m[32m\[m [36m\[m [36m\[m  
+[1;31m|[m * [32m\[m [36m\[m [36m\[m   [33m55e190a[m Merge branch 'gabriel' of git.dti.crosemont.quebec:6236429/crm-manara-yumnah-amphy-gabriel into yumnah
+[1;31m|[m [33m|[m[34m\[m [32m\[m [36m\[m [36m\[m  
+* [33m|[m [34m|[m [32m|[m [36m|[m [36m|[m [33me1ff0a8[m page connexion et inscription fonctionnel
+[36m|[m [33m|[m[36m_[m[34m|[m[36m_[m[32m|[m[36m_[m[36m|[m[36m/[m  
+[36m|[m[36m/[m[33m|[m [34m|[m [32m|[m [36m|[m   
+* [33m|[m [34m|[m [32m|[m [36m|[m [33ma8ac874[m Html complet du site
+* [33m|[m [34m|[m [32m|[m [36m|[m [33mfb76a95[m Html complet du site
+* [33m|[m [34m|[m [32m|[m [36m|[m [33mce2b723[m merge
+[36m|[m [33m|[m[36m_[m[34m|[m[36m_[m[32m|[m[36m/[m  
+[36m|[m[36m/[m[33m|[m [34m|[m [32m|[m   
+* [33m|[m [34m|[m [32m|[m [33m0d1105a[m merge
+[32m|[m [33m|[m[32m_[m[34m|[m[32m/[m  
+[32m|[m[32m/[m[33m|[m [34m|[m   
+* [33m|[m [34m|[m   [33m62cb36d[m merge
+[35m|[m[34m\[m [33m\[m [34m\[m  
+[35m|[m [34m|[m [33m|[m[34m/[m  
+[35m|[m [34m|[m[34m/[m[33m|[m   
+[35m|[m * [33m|[m [33madeda4e[m Changement erreur
+[35m|[m * [33m|[m [33m364e32e[m Implementation des entites, repository et service pour le fonctionement de Parent
+* [36m|[m [33m|[m [33m465b945[m merge
+* [36m|[m [33m|[m [33m4b45555[m les pages html dashboard / login
+* [36m|[m [33m|[m   [33me6f46df[m Merge branch 'main' of git.dti.crosemont.quebec:6236429/crm-manara-yumnah-amphy-gabriel into Cirius
+[36m|[m[1;32m\[m [36m\[m [33m\[m  
+[36m|[m [1;32m|[m[36m/[m [33m/[m  
+[36m|[m[36m/[m[1;32m|[m [33m|[m   
+* [1;32m|[m [33m|[m   [33mda514aa[m Merge branch 'yumnah' of git.dti.crosemont.quebec:6236429/crm-manara-yumnah-amphy-gabriel into Cirius
+[1;33m|[m[1;34m\[m [1;32m\[m [33m\[m  
+* [1;34m|[m [1;32m|[m [33m|[m [33md38805f[m squelette du tempates
+[1;34m|[m [1;34m|[m [1;32m|[m [33m|[m * [33mea1aae2[m[33m ([m[1;31morigin/louca[m[33m)[m login création à tester je ne peux pas le faire mon css bug
+[1;34m|[m [1;34m|[m [1;32m|[m [33m|[m[1;32m/[m  
+[1;34m|[m [1;34m|[m [1;32m|[m[1;32m/[m[33m|[m   
+[1;34m|[m [1;34m|[m * [33m|[m [33m2182f2f[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmain[m[33m)[m Merge branch 'yumnah' into 'main'
+[1;34m|[m [1;34m|[m [1;36m|[m[33m\[m[33m|[m 
+[1;34m|[m [1;34m|[m [1;36m|[m * [33m0c15285[m Implementation du modele, du repos et du service de l'admin
+[1;34m|[m [1;34m|[m [1;36m|[m[1;34m/[m  
+[1;34m|[m [1;34m|[m[1;34m/[m[1;36m|[m   
+[1;34m|[m * [1;36m|[m [33m57ac344[m Structure MVC du projet Manara
+[1;34m|[m[1;34m/[m [1;36m/[m  
+* [1;36m/[m [33mafaceb1[m dossier InteliJ pour le projet
+[1;36m|[m[1;36m/[m  
+* [33md9d6529[m Initial commit

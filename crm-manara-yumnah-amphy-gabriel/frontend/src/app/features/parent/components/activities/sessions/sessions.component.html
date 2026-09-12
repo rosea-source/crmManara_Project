@@ -1,0 +1,98 @@
+<div class="d-flex min-vh-100">
+  <app-sidebar-parent></app-sidebar-parent>
+
+  <div class="content flex-grow-1 p-4 p-lg-5 bg-light">
+
+    <div class="d-flex align-items-center gap-3 mb-4">
+      <a routerLink="/parent/activities/list"
+         class="btn btn-outline-dark rounded-circle shadow-sm">
+        <i class="bi bi-arrow-left"></i>
+      </a>
+      <div>
+        <h1 class="fw-bold mb-0">Sessions disponibles</h1>
+        <p class="text-muted mb-0">Filtrez et choisissez facilement</p>
+      </div>
+    </div>
+
+    <!-- FILTRES -->
+    <div class="card border-0 shadow-sm rounded-4 p-3 mb-4">
+      <div class="row g-3">
+        <div class="col-md-3">
+          <input type="date"
+                 class="form-control bg-light border-0"
+                 [(ngModel)]="filterDate"
+                 (ngModelChange)="applyFilters()">
+        </div>
+        <div class="col-md-3">
+          <select class="form-select bg-light border-0"
+                  [(ngModel)]="filterTime"
+                  (ngModelChange)="applyFilters()">
+            <option value="">Tous les horaires</option>
+            <option value="matin">Matin</option>
+            <option value="apres-midi">Après-midi</option>
+            <option value="soir">Soir</option>
+          </select>
+        </div>
+        <div class="col-md-3">
+          <select class="form-select bg-light border-0"
+                  [(ngModel)]="sortPlaces"
+                  (ngModelChange)="applyFilters()">
+            <option value="">Tri</option>
+            <option value="asc">Places restantes ↑</option>
+            <option value="desc">Places restantes ↓</option>
+          </select>
+        </div>
+        <div class="col-md-3">
+          <button class="btn btn-outline-dark w-100" (click)="resetFilters()">Reset</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- LOADING -->
+    <div *ngIf="loading" class="text-center py-5">
+      <div class="spinner-border text-dark"></div>
+    </div>
+
+    <!-- GRID — toutes les sessions ici sont forcément disponibles -->
+    <div *ngIf="!loading" class="row g-4">
+      <div class="col-md-6 col-xl-4" *ngFor="let s of filtered">
+        <div class="card border-0 shadow-sm rounded-4 h-100 p-4 d-flex flex-column justify-content-between">
+          <div>
+            <h5 class="fw-bold mb-2">{{ s.activite?.titre }}</h5>
+
+            <!-- Lieu uniquement — plus de badge Complet -->
+            <span class="badge border text-dark mb-2">{{ s.lieu }}</span>
+
+            <div class="d-flex flex-column gap-3 mt-3">
+              <div>
+                <small class="text-muted">Dates</small>
+                <div class="fw-bold">{{ s.dateDebut }} → {{ s.dateFin }}</div>
+              </div>
+              <div>
+                <small class="text-muted">Horaire</small>
+                <div class="fw-bold">{{ s.heureDebut }} - {{ s.heureFin }}</div>
+              </div>
+              <div>
+                <small class="text-muted">Places restantes</small>
+                <div class="fw-bold">{{ s.capaciteMax ?? 0 }}</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bouton toujours actif ici car session forcément disponible -->
+          <a [routerLink]="['/parent/activities/register', s.id]"
+             class="btn btn-dark w-100 rounded-pill mt-4">
+            S'inscrire
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- VIDE -->
+    <div *ngIf="!loading && filtered.length === 0" class="text-center text-muted py-5">
+      <i class="bi bi-inbox fs-1"></i>
+      <p class="mt-3">Aucune session disponible</p>
+    </div>
+
+  </div>
+</div>

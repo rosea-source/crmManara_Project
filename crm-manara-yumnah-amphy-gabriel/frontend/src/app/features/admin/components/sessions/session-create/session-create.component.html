@@ -1,0 +1,116 @@
+<div class="d-flex">
+  <app-sidebar-admin></app-sidebar-admin>
+
+  <div class="content flex-grow-1 p-4 bg-light">
+    <div class="container" style="max-width: 850px;">
+
+      <div class="d-flex align-items-center gap-3 mb-4">
+        <a routerLink="/admin/sessions"
+           class="btn btn-dark rounded-circle d-flex align-items-center justify-content-center"
+           style="width:42px;height:42px;">←</a>
+        <div>
+          <h2 class="fw-bold mb-0">Planifier une session</h2>
+          <small class="text-muted">Créer une nouvelle session d'activité</small>
+        </div>
+      </div>
+
+      <!-- SUCCESS -->
+      <div *ngIf="success" class="alert alert-success rounded-4 mb-3">
+        <i class="bi bi-check-circle me-2"></i>{{ success }}
+      </div>
+
+      <!-- ERROR -->
+      <div *ngIf="error" class="alert alert-danger rounded-4 mb-3">
+        <i class="bi bi-exclamation-circle me-2"></i>{{ error }}
+      </div>
+
+      <div class="card border-0 shadow rounded-4 overflow-hidden">
+        <div class="bg-dark text-white p-4">
+          <h5 class="mb-0 fw-bold">Informations de la session</h5>
+        </div>
+        <div class="p-4 bg-white">
+          <form (ngSubmit)="onSubmit()" #f="ngForm">
+
+            <div class="mb-4">
+              <label class="form-label fw-semibold">Activité</label>
+              <select class="form-select rounded-4 p-3"
+                      [(ngModel)]="session.activiteId" name="activiteId" required>
+                <option [ngValue]="null">-- Sélectionner une activité --</option>
+                <option *ngFor="let a of activites" [ngValue]="a.id">{{ a.titre }}</option>
+              </select>
+            </div>
+
+            <div class="mb-4">
+              <label class="form-label fw-semibold">Animateur</label>
+              <select class="form-select rounded-4 p-3"
+                      [(ngModel)]="session.animateurId" name="animateurId" required>
+                <option [ngValue]="null">-- Sélectionner un animateur --</option>
+                <option *ngFor="let a of animateurs" [ngValue]="a.id">{{ a.nom }}</option>
+              </select>
+            </div>
+
+            <div class="row g-3 mb-4">
+              <div class="col-md-6">
+                <label class="form-label fw-semibold">Date début</label>
+                <input type="date" [(ngModel)]="session.dateDebut" name="dateDebut"
+                       class="form-control rounded-4 p-3" required>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label fw-semibold">Date fin</label>
+                <input type="date" [(ngModel)]="session.dateFin" name="dateFin"
+                       class="form-control rounded-4 p-3">
+              </div>
+            </div>
+
+            <div class="row g-3 mb-4">
+              <div class="col-md-6">
+                <label class="form-label fw-semibold">Heure début</label>
+                <input type="time" [(ngModel)]="session.heureDebut" name="heureDebut"
+                       class="form-control rounded-4 p-3" required>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label fw-semibold">Heure fin</label>
+                <input type="time" [(ngModel)]="session.heureFin" name="heureFin"
+                       class="form-control rounded-4 p-3" required>
+              </div>
+            </div>
+
+            <div class="row g-3 mb-4">
+              <div class="col-md-8">
+                <label class="form-label fw-semibold">Lieu</label>
+                <input type="text" [(ngModel)]="session.lieu" name="lieu"
+                       class="form-control rounded-4 p-3"
+                       placeholder="Ex : Salle polyvalente">
+              </div>
+              <div class="col-md-4">
+                <label class="form-label fw-semibold">Capacité</label>
+                <input type="number" [(ngModel)]="session.capaciteMax" name="capaciteMax"
+                       class="form-control rounded-4 p-3">
+              </div>
+            </div>
+
+            <div class="mb-4">
+              <label class="form-label fw-semibold">Statut</label>
+              <select [(ngModel)]="session.statut" name="statut"
+                      class="form-select rounded-4 p-3">
+                <option value="Prévue">Prévue</option>
+                <option value="En cours">En cours</option>
+                <option value="Terminée">Terminée</option>
+                <option value="Annulée">Annulée</option>
+              </select>
+            </div>
+
+            <div class="text-end">
+              <button type="submit" [disabled]="loading"
+                      class="btn btn-primary rounded-pill px-5 py-3 fw-bold">
+                <span *ngIf="loading" class="spinner-border spinner-border-sm me-2"></span>
+                {{ loading ? 'Enregistrement...' : 'Enregistrer' }}
+              </button>
+            </div>
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

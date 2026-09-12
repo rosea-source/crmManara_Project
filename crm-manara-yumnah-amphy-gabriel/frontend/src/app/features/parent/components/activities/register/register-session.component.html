@@ -1,0 +1,77 @@
+<div class="d-flex min-vh-100">
+  <app-sidebar-parent></app-sidebar-parent>
+
+  <div class="content flex-grow-1 p-4 p-lg-5 bg-light">
+
+    <div *ngIf="loading" class="text-center py-5">
+      <div class="spinner-border text-dark"></div>
+    </div>
+
+    <div *ngIf="!loading">
+
+      <div class="d-flex align-items-center gap-3 mb-5">
+        <a routerLink="/parent/activities/list"
+           class="btn btn-outline-dark rounded-circle shadow-sm">
+          <i class="bi bi-arrow-left"></i>
+        </a>
+        <h2 class="fw-bold mb-0">Finaliser l'inscription</h2>
+      </div>
+
+      <div class="row justify-content-center">
+        <div class="col-lg-8 col-xl-7">
+          <div class="card border-0 shadow-sm rounded-4 overflow-hidden bg-white">
+
+            <div class="bg-dark text-white p-4">
+              <h5 class="fw-bold mb-2">
+                {{ session?.activite?.titre ?? 'Activité non disponible' }}
+              </h5>
+              <div class="small opacity-75">
+                {{ session?.heureDebut }} - {{ session?.heureFin }}
+              </div>
+            </div>
+
+            <div class="card-body p-4 p-lg-5">
+
+              <div *ngIf="success" class="alert alert-success text-center">{{ success }}</div>
+              <div *ngIf="error"   class="alert alert-danger  text-center">{{ error }}</div>
+
+              <div *ngIf="enfants.length === 0 && !error" class="alert alert-warning">
+                Aucun enfant enregistré.
+                <a routerLink="/parent/children/add">Ajouter un enfant</a>
+              </div>
+
+              <div *ngIf="enfants.length > 0">
+                <label class="form-label fw-bold mb-3">Choisir un enfant</label>
+                <div class="d-flex flex-column gap-3">
+                  <label *ngFor="let enfant of enfants"
+                         class="p-3 border rounded-4 d-flex align-items-center gap-3"
+                         style="cursor:pointer;">
+                    <input type="radio"
+                           class="form-check-input"
+                           [value]="enfant.id"
+                           [(ngModel)]="selectedEnfantId">
+                    <div class="fw-bold">{{ enfant.prenom }} {{ enfant.nom }}</div>
+                  </label>
+                </div>
+
+                <button class="btn btn-dark w-100 rounded-pill fw-bold mt-4"
+                        (click)="submit()"
+                        [disabled]="submitting || !selectedEnfantId">
+                  <span *ngIf="submitting"
+                        class="spinner-border spinner-border-sm me-2"></span>
+                  Confirmer l'inscription
+                </button>
+              </div>
+
+            </div>
+          </div>
+
+          <p class="text-center mt-4 text-muted small">
+            <i class="bi bi-info-circle"></i> Validation sous 24-48h
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

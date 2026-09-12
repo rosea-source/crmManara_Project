@@ -1,0 +1,173 @@
+<!-- src/app/features/about/about.component.html -->
+<app-navbar></app-navbar>
+
+<main class="container py-5">
+
+  <!-- HERO -->
+  <div class="text-center mb-5">
+    <h1 class="fw-bold display-5">À propos de nous</h1>
+    <p class="text-muted lead">Notre mission au service des enfants et des familles</p>
+  </div>
+
+  <!-- MISSION -->
+  <div class="row g-4 mb-5 align-items-center">
+    <div class="col-md-7">
+      <span class="badge bg-warning text-dark mb-2 px-3 py-2 rounded-pill fw-bold">
+        Notre Mission & Objectifs
+      </span>
+      <h2 class="fw-bold mt-2">Accompagner les enfants, soutenir les familles !</h2>
+      <p class="text-muted mt-3">
+        <strong>Manara Centre</strong> accompagne les enfants grâce à un encadrement bienveillant
+        et un soutien à l'apprentissage adapté. Nous proposons des activités enrichissantes
+        dans un environnement sécurisant et inclusif.
+      </p>
+      <p class="text-muted">
+        Ensemble, nous soutenons les familles et œuvrons pour l'avenir des enfants.
+        Notre approche combine rigueur pédagogique et épanouissement personnel,
+        pour que chaque enfant puisse révéler son plein potentiel.
+      </p>
+      <a routerLink="/register" class="btn btn-warning fw-bold rounded-pill px-4 me-2">
+        <i class="bi bi-person-plus me-1"></i> Créer un compte
+      </a>
+      <a routerLink="/login" class="btn btn-outline-dark rounded-pill px-4">
+        Se connecter
+      </a>
+    </div>
+    <div class="col-md-5">
+      <div class="row g-3">
+        <div class="col-6">
+          <div class="stats-box border-0 text-center h-100">
+            <div class="fs-2 fw-bold text-warning">500+</div>
+            <small class="text-muted text-uppercase">Enfants accompagnés</small>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="stats-box border-0 text-center h-100">
+            <div class="fs-2 fw-bold text-warning">12</div>
+            <small class="text-muted text-uppercase">Activités</small>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="stats-box border-0 text-center h-100">
+            <div class="fs-2 fw-bold text-warning">30+</div>
+            <small class="text-muted text-uppercase">Animateurs</small>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="stats-box border-0 text-center h-100 bg-dark text-white rounded">
+            <div class="fs-2 fw-bold text-warning">10 ans</div>
+            <small class="text-white-50 text-uppercase">D'engagement</small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="my-5">
+
+  <!-- VALEURS -->
+  <div class="text-center mb-4">
+    <span class="badge bg-warning text-dark mb-2 px-3 py-2 rounded-pill fw-bold">Ce qui nous guide</span>
+    <h2 class="fw-bold">Nos valeurs fondamentales</h2>
+    <div class="mx-auto bg-warning mt-2" style="height:4px;width:60px;border-radius:2px;"></div>
+  </div>
+  <div class="row g-4 mb-5">
+    <div class="col-md-3" *ngFor="let v of valeurs">
+      <div class="stats-box hover-card border-0 text-center h-100">
+        <div class="mb-3 text-warning"><i class="bi fs-1" [ngClass]="v.icon"></i></div>
+        <h5 class="fw-bold">{{ v.titre }}</h5>
+        <p class="text-muted small mb-0">{{ v.desc }}</p>
+      </div>
+    </div>
+  </div>
+
+  <hr class="my-5">
+
+  <!-- HISTOIRE -->
+  <div class="text-center mb-4" id="histoire">
+    <span class="badge bg-warning text-dark mb-2 px-3 py-2 rounded-pill fw-bold">Notre histoire</span>
+    <h2 class="fw-bold">Une décennie d'engagement</h2>
+    <div class="mx-auto bg-warning mt-2" style="height:4px;width:60px;border-radius:2px;"></div>
+  </div>
+  <div class="row justify-content-center mb-5">
+    <div class="col-lg-8">
+      <div class="d-flex flex-column gap-3">
+
+        <div class="stats-box d-flex flex-row gap-3 align-items-start">
+          <span class="badge bg-warning text-dark fs-6 px-3 py-2 flex-shrink-0">2016</span>
+          <div>
+            <h6 class="fw-bold mb-1">Fondation de Manara Centre</h6>
+            <p class="text-muted small mb-0">Création du centre communautaire à Montréal pour offrir un espace d'apprentissage et d'épanouissement pour les enfants des familles immigrantes.</p>
+          </div>
+        </div>
+
+        <div class="stats-box d-flex flex-row gap-3 align-items-start">
+          <span class="badge bg-warning text-dark fs-6 px-3 py-2 flex-shrink-0">2018</span>
+          <div>
+            <h6 class="fw-bold mb-1">Expansion des programmes</h6>
+            <p class="text-muted small mb-0">Lancement de 6 nouvelles activités parascolaires et du programme de soutien scolaire, touchant plus de 150 enfants.</p>
+          </div>
+        </div>
+
+        <div class="stats-box d-flex flex-row gap-3 align-items-start">
+          <span class="badge bg-warning text-dark fs-6 px-3 py-2 flex-shrink-0">2021</span>
+          <div>
+            <h6 class="fw-bold mb-1">Plateforme numérique</h6>
+            <p class="text-muted small mb-0">Développement du CRM Manara pour mieux gérer les inscriptions, le suivi des enfants et la communication avec les familles.</p>
+          </div>
+        </div>
+
+        <div class="stats-box border-warning d-flex flex-row gap-3 align-items-start"
+             style="border-left:4px solid #ffc107 !important;">
+          <span class="badge bg-warning text-dark fs-6 px-3 py-2 flex-shrink-0">2026</span>
+          <div>
+            <h6 class="fw-bold mb-1">Aujourd'hui — 500+ enfants</h6>
+            <p class="text-muted small mb-0">Manara Centre accompagne plus de 500 enfants avec une équipe de 30+ animateurs, et continue de grandir grâce au soutien de la communauté.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <hr class="my-5">
+
+  <!-- ÉQUIPE -->
+  <div class="text-center mb-4">
+    <span class="badge bg-warning text-dark mb-2 px-3 py-2 rounded-pill fw-bold">L'équipe</span>
+    <h2 class="fw-bold">Des personnes engagées</h2>
+    <div class="mx-auto bg-warning mt-2" style="height:4px;width:60px;border-radius:2px;"></div>
+  </div>
+  <div class="row g-4 justify-content-center mb-5">
+    <div class="col-md-3" *ngFor="let m of equipe">
+      <div class="stats-box text-center border-0 hover-card">
+        <div class="rounded-circle d-flex align-items-center justify-content-center mx-auto mb-3 text-white fw-bold fs-5"
+             [style.background]="m.color" style="width:60px;height:60px;">
+          {{ m.initiales }}
+        </div>
+        <h6 class="fw-bold mb-0">{{ m.prenom }} {{ m.nom }}</h6>
+        <small class="text-muted">{{ m.role }}</small>
+      </div>
+    </div>
+  </div>
+
+  <hr class="my-5">
+
+  <!-- CTA -->
+  
+    <div class="container py-3 text-center">
+      <div class="p-5 rounded-5 shadow text-white anim-fade-up"
+           style="background-color:#0f172a;">
+        <h3 class="display-6 fw-bold">Prêt à rejoindre la communauté Manara ?</h3>
+        <p class="lead opacity-75 mb-4 mt-3">Inscrivez vos enfants dès maintenant.</p>
+        <a routerLink="/register"
+           class="btn btn-warning btn-lg px-5 py-3 fw-bold rounded-pill anim-pulse-btn">
+          Commencer maintenant
+        </a>
+      </div>
+    </div>
+  
+
+</main>
+
+<app-footer></app-footer>

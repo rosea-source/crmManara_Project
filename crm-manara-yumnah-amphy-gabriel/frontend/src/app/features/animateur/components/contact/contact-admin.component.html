@@ -1,0 +1,91 @@
+<div class="d-flex min-vh-100">
+  <app-sidebar-animateur></app-sidebar-animateur>
+
+  <div class="content flex-grow-1 p-4 p-lg-5 bg-light">
+
+    <div class="d-flex align-items-center gap-3 mb-5">
+      <a routerLink="/animateur/dashboard"
+         class="btn btn-outline-dark rounded-circle shadow-sm">
+        <i class="bi bi-arrow-left"></i>
+      </a>
+      <div>
+        <h1 class="fw-bold mb-0">Contacter l'administration</h1>
+        <p class="text-muted mb-0">Envoyez votre message directement à notre équipe</p>
+      </div>
+    </div>
+
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+
+        <!-- SUCCESS -->
+        <div *ngIf="success" class="alert alert-success rounded-4 mb-4">
+          <i class="bi bi-check-circle me-2"></i>{{ success }}
+        </div>
+
+        <!-- ERROR -->
+        <div *ngIf="error" class="alert alert-danger rounded-4 mb-4">
+          <i class="bi bi-exclamation-circle me-2"></i>{{ error }}
+        </div>
+
+        <div class="card border-0 shadow-sm rounded-4">
+          <div class="card-body p-4 p-lg-5">
+
+            <form (ngSubmit)="onSubmit()" novalidate>
+
+              <div class="mb-4">
+                <label class="form-label fw-semibold">Sujet</label>
+                <input type="text"
+                       [(ngModel)]="sujet" name="sujet"
+                       class="form-control rounded-4 p-3 bg-light border-0"
+                       placeholder="Ex: Question sur une session">
+              </div>
+
+              <div class="mb-4">
+                <label class="form-label fw-semibold">Message</label>
+                <textarea [(ngModel)]="message" name="message"
+                          class="form-control rounded-4 p-3 bg-light border-0"
+                          rows="7"
+                          placeholder="Écrivez votre message ici..."></textarea>
+              </div>
+
+              <button type="submit"
+                      class="btn btn-dark w-100 rounded-pill py-3 fw-bold"
+                      [disabled]="loading">
+                <span *ngIf="loading" class="spinner-border spinner-border-sm me-2"></span>
+                <i *ngIf="!loading" class="bi bi-send me-2"></i>
+                {{ loading ? 'Envoi...' : 'Envoyer le message' }}
+              </button>
+
+            </form>
+          </div>
+        </div>
+
+        <!-- INFO CARDS -->
+        <div class="row g-3 mt-4">
+          <div class="col-md-4">
+            <div class="card border-0 shadow-sm rounded-4 p-3 text-center">
+              <i class="bi bi-clock-fill fs-2 text-warning"></i>
+              <div class="fw-bold mt-2 small">Réponse rapide</div>
+              <small class="text-muted">Sous 24 à 48h</small>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card border-0 shadow-sm rounded-4 p-3 text-center">
+              <i class="bi bi-shield-check fs-2 text-warning"></i>
+              <div class="fw-bold mt-2 small">Support sécurisé</div>
+              <small class="text-muted">Données protégées</small>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card border-0 shadow-sm rounded-4 p-3 text-center">
+              <i class="bi bi-people-fill fs-2 text-warning"></i>
+              <div class="fw-bold mt-2 small">Équipe dédiée</div>
+              <small class="text-muted">Nous vous accompagnons</small>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

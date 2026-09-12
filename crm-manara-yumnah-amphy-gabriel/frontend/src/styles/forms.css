@@ -1,0 +1,58 @@
+/*
+   Cirius Rose Alexandra - 2026
+   CSS Forms
+*/
+
+.form-container {
+    max-width: 650px;
+    margin: 10px auto 50px auto;
+    background: white;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 6px 18px rgba(15, 23, 42, 0.08);
+    border-top: 5px solid #2563eb;
+}
+
+.form-title {
+    text-align: center;
+    margin-bottom: 30px;
+    font-weight: bold;
+    color: #0f172a;
+}
+
+.form-control,
+.form-select {
+    border-radius: 8px;
+    border: 1px solid #cbd5e1;
+    transition: all 0.3s ease;
+    font-size: 14px;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: #facc15;
+    box-shadow: 0 0 0 3px rgba(250, 204, 21, 0.25);
+}
+
+textarea {
+    resize: none;
+}
+
+.form-label {
+    font-weight: 500;
+    color: #1e293b;
+}
+
+.btn-success {
+    background-color: #2563eb;
+    border: none;
+    color: white;
+    font-weight: bold;
+    border-radius: 8px;
+    padding: 10px;
+    transition: all 0.3s ease;
+}
+
+.btn-success:hover {
+    background-color: #1e40af;
+}

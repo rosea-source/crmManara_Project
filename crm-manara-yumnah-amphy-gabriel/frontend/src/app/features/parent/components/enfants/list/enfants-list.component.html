@@ -1,0 +1,95 @@
+<div class="d-flex vh-100 overflow-hidden">
+  <app-sidebar-parent></app-sidebar-parent>
+
+  <div class="content flex-grow-1 p-4 p-lg-5 overflow-auto bg-light">
+
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-end mb-4 gap-3">
+      <div>
+        <h1 class="fw-bold mb-1">Mes enfants</h1>
+        <p class="text-muted mb-0">Gérez les profils pour les inscriptions</p>
+      </div>
+      <a routerLink="/parent/children/add" class="btn btn-warning fw-bold px-4">
+        <i class="bi bi-plus-lg me-2"></i> Ajouter
+      </a>
+    </div>
+
+    <div class="mb-4">
+      <div class="input-group shadow-sm">
+        <span class="input-group-text bg-white border-end-0">
+          <i class="bi bi-search text-muted"></i>
+        </span>
+        <input type="text"
+               class="form-control border-start-0"
+               placeholder="Rechercher un enfant..."
+               [(ngModel)]="searchTerm"
+               (input)="onSearch()">
+      </div>
+    </div>
+
+    <div class="card border-0 shadow-sm rounded-4" style="overflow: visible;">
+      <div class="table-responsive" style="min-height: 300px; overflow: visible;">
+        <table class="table align-middle mb-0">
+          <thead class="table-light">
+            <tr>
+              <th class="ps-4 py-3">Enfant</th>
+              <th>Âge</th>
+              <th>Naissance</th>
+              <th class="text-end pe-4"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let enfant of filteredEnfants">
+              <td class="ps-4 py-3">
+                <div class="d-flex align-items-center gap-3">
+                  <div class="rounded-circle bg-light d-flex align-items-center justify-content-center"
+                       style="width:42px;height:42px;">
+                    <i class="bi bi-person-fill text-secondary"></i>
+                  </div>
+                  <div>
+                    <div class="fw-semibold">{{ enfant.prenom }}</div>
+                    <small class="text-muted">{{ enfant.nom }}</small>
+                  </div>
+                </div>
+              </td>
+              <td>{{ calculerAge(enfant.dateNaissance) }} ans</td>
+              <td>{{ enfant.dateNaissance | date:'dd MMM yyyy' }}</td>
+              <td class="text-end pe-4">
+                <div class="dropup">
+                  <button class="btn btn-sm btn-light" data-bs-toggle="dropdown">
+                    <i class="bi bi-three-dots-vertical"></i>
+                  </button>
+                  <ul class="dropdown-menu dropdown-menu-end">
+                    <li>
+                      <a class="dropdown-item"
+                         [routerLink]="['/parent/children/edit', enfant.id]">
+                        <i class="bi bi-pencil me-2"></i>Modifier
+                      </a>
+                    </li>
+                    <li>
+                      <a class="dropdown-item"
+                         [routerLink]="['/parent/enfants', enfant.id, 'messages']">
+                        <i class="bi bi-chat-dots me-2"></i>Details
+                      </a>
+                    </li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li>
+                      <button class="dropdown-item text-danger"
+                              (click)="onDelete(enfant.id!, enfant.prenom)">
+                        <i class="bi bi-trash me-2"></i>Supprimer
+                      </button>
+                    </li>
+                  </ul>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div *ngIf="filteredEnfants.length === 0" class="text-center py-4 text-muted">
+          Aucun enfant trouvé ❗
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

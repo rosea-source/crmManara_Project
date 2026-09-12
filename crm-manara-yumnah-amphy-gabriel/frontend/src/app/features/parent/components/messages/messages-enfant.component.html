@@ -1,0 +1,138 @@
+<div class="d-flex min-vh-100">
+  <app-sidebar-parent></app-sidebar-parent>
+
+  <div class="content flex-grow-1 p-4 p-lg-5 bg-light">
+
+    <div *ngIf="loading" class="text-center py-5">
+      <div class="spinner-border text-dark"></div>
+    </div>
+
+    <div *ngIf="!loading">
+
+      <!-- HEADER -->
+      <div class="d-flex align-items-center justify-content-between mb-4">
+        <div class="d-flex align-items-center gap-3">
+          <a routerLink="/parent/children/list"
+             class="btn btn-outline-dark rounded-circle shadow-sm">
+            <i class="bi bi-arrow-left"></i>
+          </a>
+          <div>
+            <h2 class="fw-bold mb-0">
+              Messages de {{ data?.enfant?.prenom }} {{ data?.enfant?.nom }}
+            </h2>
+            <small class="text-muted">Messages des animateurs pour votre enfant</small>
+          </div>
+        </div>
+        <button class="btn btn-warning rounded-pill shadow-sm" (click)="contacterAdmin()">
+          <i class="bi bi-envelope me-2"></i> Contacter Admin
+        </button>
+      </div>
+
+      <!-- STATS -->
+      <div class="row g-3 mb-4">
+        <div class="col-md-4">
+          <div class="card border-0 shadow-sm rounded-4 p-3 text-center bg-white">
+            <div class="fs-2 fw-bold">{{ data?.totalSessions ?? 0 }}</div>
+            <small class="text-muted">
+              <i class="bi bi-calendar3 me-1"></i> Sessions inscrites
+            </small>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card border-0 shadow-sm rounded-4 p-3 text-center bg-white">
+            <div class="fs-2 fw-bold text-success">{{ data?.totalPresences ?? 0 }}</div>
+            <small class="text-muted">
+              <i class="bi bi-check-circle me-1"></i> Présences
+            </small>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card border-0 shadow-sm rounded-4 p-3 text-center bg-white">
+            <div class="fs-2 fw-bold"
+                 [class.text-danger]="(data?.totalAbsences ?? 0) > 0"
+                 [class.text-muted]="(data?.totalAbsences ?? 0) === 0">
+              {{ data?.totalAbsences ?? 0 }}
+            </div>
+            <small class="text-muted">
+              <i class="bi bi-x-circle me-1"></i> Absences
+            </small>
+            <div *ngIf="(data?.totalAbsences ?? 0) >= 3" class="mt-2">
+              <span class="badge bg-danger rounded-pill">
+                <i class="bi bi-exclamation-triangle me-1"></i> Absences fréquentes
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FILTRES PAR SESSION -->
+      <div class="mb-4 d-flex gap-2 flex-wrap">
+        <button class="btn btn-sm rounded-pill"
+                [class.btn-dark]="selectedSessionId === null"
+                [class.btn-outline-dark]="selectedSessionId !== null"
+                (click)="filterSession(null)">
+          Tous
+        </button>
+        <button *ngFor="let s of data?.sessions"
+                class="btn btn-sm rounded-pill"
+                [class.btn-dark]="selectedSessionId === s.id"
+                [class.btn-outline-dark]="selectedSessionId !== s.id"
+                (click)="filterSession(s.id)">
+          {{ s.activite.titre }}
+        </button>
+      </div>
+
+      <!-- VIDE -->
+      <div *ngIf="filteredMessages.length === 0" class="text-center text-muted py-5">
+        <i class="bi bi-inbox fs-1"></i>
+        <p class="mt-3">Aucun message pour le moment</p>
+      </div>
+
+      <!-- LISTE MESSAGES -->
+      <div class="d-flex flex-column gap-3">
+        <div *ngFor="let msg of filteredMessages"
+             class="card border-0 shadow-sm rounded-4 p-4">
+
+          <!-- HEADER -->
+          <div class="d-flex justify-content-between mb-3">
+            <span class="badge bg-dark">{{ msg.session?.activite?.titre }}</span>
+            <small class="text-muted">{{ msg.dateEnvoi | date:'dd/MM/yyyy HH:mm' }}</small>
+          </div>
+
+          <!-- ANIMATEUR -->
+          <div class="d-flex align-items-center gap-2 mb-3">
+            <i class="bi bi-person-circle fs-5"></i>
+            <div>
+              <div class="fw-bold small">
+                {{ msg.animateur?.prenom }} {{ msg.animateur?.nom }}
+              </div>
+              <small class="text-muted">Animateur</small>
+            </div>
+          </div>
+
+          <!-- CONTENU -->
+          <p class="mb-3">{{ msg.contenu }}</p>
+
+          <!-- FICHIER -->
+          <div *ngIf="msg.fichierNom" class="mb-3">
+            <a [href]="'http://localhost:8080/fichiers/' + msg.fichierChemin"
+               target="_blank"
+               class="btn btn-sm btn-outline-dark rounded-pill">
+              <i class="bi bi-download me-1"></i>{{ msg.fichierNom }}
+            </a>
+          </div>
+
+          <!-- RÉPONDRE -->
+          <div>
+            <button class="btn btn-sm btn-outline-dark rounded-pill"
+                    (click)="repondre(msg)">
+              <i class="bi bi-reply me-1"></i> Répondre
+            </button>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

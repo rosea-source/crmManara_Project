@@ -1,0 +1,154 @@
+<!-- src/app/features/parent/components/dashboard/dashboard.component.html -->
+<div class="d-flex vh-100 overflow-hidden">
+
+  <!-- SIDEBAR -->
+  <app-sidebar-parent></app-sidebar-parent>
+
+  <!-- CONTENU -->
+  <div class="content flex-grow-1 p-4 p-lg-5 overflow-auto">
+
+    <!-- HEADER -->
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-end mb-5 gap-3">
+      <div>
+        <h1 class="fw-bold mb-1">Bienvenue</h1>
+        <p class="text-muted mb-0">
+          Espace parent - <span>{{ dashboard?.email }}</span>
+        </p>
+      </div>
+
+      <a routerLink="/parent/children/add" class="btn btn-warning fw-bold shadow-sm px-4">
+        <i class="bi bi-person-plus me-2"></i> Ajouter un enfant
+      </a>
+    </div>
+
+    <!-- STATS -->
+    <div class="row g-4">
+
+      <div class="col-12 col-sm-6 col-lg-3">
+        <div class="p-4 shadow-sm h-100 text-center border-0 bg-white rounded-4">
+          <i class="bi bi-people-fill fs-1 text-primary"></i>
+          <h2 class="fw-bold mt-3 mb-1">{{ dashboard?.nbr_enfants ?? 0 }}</h2>
+          <div class="text-secondary text-uppercase small fw-semibold">Enfants</div>
+        </div>
+      </div>
+
+      <div class="col-12 col-sm-6 col-lg-3">
+        <div class="p-4 shadow-sm h-100 text-center border-0 bg-white rounded-4">
+          <i class="bi bi-calendar-check-fill fs-1 text-success"></i>
+          <h2 class="fw-bold mt-3 mb-1">{{ dashboard?.nbr_inscription ?? 0 }}</h2>
+          <div class="text-secondary text-uppercase small fw-semibold">Activités</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- LISTES PRINCIPALES -->
+    <div class="row mt-5 g-4">
+
+      <!-- ENFANTS -->
+      <div class="col-lg-6">
+        <div class="card border-0 shadow-sm rounded-4 p-4 h-100">
+          <div class="d-flex justify-content-between align-items-center mb-4">
+            <h5 class="fw-bold mb-0">Mes enfants</h5>
+            <a routerLink="/parent/children/list"
+               class="btn btn-sm fw-bold text-dark text-decoration-none">
+              Voir tout
+            </a>
+          </div>
+
+          <ul class="list-group list-group-flush">
+            <li *ngFor="let enfant of dashboard?.enfants"
+                class="list-group-item px-0 d-flex justify-content-between align-items-center">
+              <div class="d-flex align-items-center gap-2">
+                <i class="bi bi-person-circle fs-4 text-secondary"></i>
+                <div>
+                  <div class="fw-semibold">{{ enfant.prenom }}</div>
+                  <small class="text-muted">{{ enfant.nom }}</small>
+                </div>
+              </div>
+            </li>
+
+            <li *ngIf="!dashboard?.enfants?.length"
+                class="list-group-item px-0 text-muted fst-italic">
+              Aucun enfant enregistré
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- ACTIVITES -->
+      <div class="col-lg-6">
+        <div class="card border-0 shadow-sm rounded-4 p-4 h-100">
+          <div class="d-flex justify-content-between align-items-center mb-4">
+            <h5 class="fw-bold mb-0">Prochaines activités</h5>
+            <a routerLink="/parent/activities/list"
+               class="btn btn-sm fw-bold text-dark text-decoration-none">
+              Voir tout
+            </a>
+          </div>
+
+          <ul class="list-group list-group-flush">
+            <li *ngFor="let inscript of dashboard?.inscriptions"
+                class="list-group-item px-0 d-flex justify-content-between align-items-center">
+              <div>
+                <strong>{{ inscript.session.activite.titre }}</strong>
+                <br>
+                <small class="text-muted">
+                  {{ inscript.session.dateDebut | date:'dd MMM yyyy' }}
+                </small>
+              </div>
+              <span class="badge bg-success rounded-pill">Confirmé</span>
+            </li>
+
+            <li *ngIf="!dashboard?.inscriptions?.length"
+                class="list-group-item px-0 text-muted fst-italic">
+              Aucune activité inscrite
+            </li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- TABLE INSCRIPTIONS RÉCENTES -->
+    <div class="row mt-5">
+      <div class="col-12">
+        <div class="card border-0 shadow-sm rounded-4 p-4">
+          <div class="d-flex justify-content-between align-items-center mb-4">
+            <h5 class="fw-bold mb-0">Mes inscriptions récentes</h5>
+            <a routerLink="/parent/planning/list"
+               class="btn btn-sm fw-bold text-decoration-none text-dark">
+              Voir planning
+            </a>
+          </div>
+
+          <div class="table-responsive">
+            <table class="table align-middle">
+              <thead class="table-light">
+                <tr>
+                  <th>Enfant</th>
+                  <th>Activité</th>
+                  <th>Date</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let inscript of dashboard?.inscriptions">
+                  <td>{{ inscript.enfant.prenom }}</td>
+                  <td>{{ inscript.session.activite.titre }}</td>
+                  <td>{{ inscript.session.dateDebut | date:'dd/MM/yyyy' }}</td>
+                </tr>
+                <tr *ngIf="!dashboard?.inscriptions?.length">
+                  <td colspan="3" class="text-muted fst-italic text-center">
+                    Aucune inscription
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

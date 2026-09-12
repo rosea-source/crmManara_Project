@@ -1,0 +1,154 @@
+<!-- src/app/features/animateur/components/incidents/history/incident-history.component.html -->
+<div class="d-flex bg-light">
+
+  <app-sidebar-animateur></app-sidebar-animateur>
+
+  <div class="content flex-grow-1 p-4">
+    <div class="container bg-white p-4 shadow-sm rounded-4">
+
+      <!-- HEADER -->
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+          <h2 class="mb-1">Historique des incidents</h2>
+          <p class="text-muted mb-0">Consultez tous les incidents signalés.</p>
+        </div>
+        <a routerLink="/animateur/incidents/report"
+           class="btn btn-primary rounded-pill px-4">
+          <i class="bi bi-plus-circle me-2"></i>Nouveau signalement
+        </a>
+      </div>
+
+      <!-- LOADING -->
+      <div *ngIf="loading" class="text-center py-4">
+        <div class="spinner-border text-dark"></div>
+      </div>
+
+      <div *ngIf="!loading">
+
+        <!-- FILTRES -->
+        <div class="card border-0 bg-light rounded-4 p-3 mb-4">
+          <div class="row g-3 align-items-end">
+
+            <div class="col-md-4">
+              <label class="form-label fw-bold small text-uppercase text-muted">
+                <i class="bi bi-search me-1"></i>Enfant
+              </label>
+              <input type="text"
+                     [(ngModel)]="filtreEnfant"
+                     class="form-control border-0 bg-white rounded-pill"
+                     placeholder="Rechercher un enfant...">
+            </div>
+
+            <div class="col-md-3">
+              <label class="form-label fw-bold small text-uppercase text-muted">
+                <i class="bi bi-journal-text me-1"></i>Activité
+              </label>
+              <select [(ngModel)]="filtreActivite"
+                      class="form-select border-0 bg-white rounded-pill">
+                <option value="">Toutes</option>
+                <option *ngFor="let a of activitesDisponibles" [value]="a">{{ a }}</option>
+              </select>
+            </div>
+
+            <div class="col-md-3">
+              <label class="form-label fw-bold small text-uppercase text-muted">
+                <i class="bi bi-exclamation-triangle me-1"></i>Gravité
+              </label>
+              <select [(ngModel)]="filtreGravite"
+                      class="form-select border-0 bg-white rounded-pill">
+                <option value="">Toutes</option>
+                <option value="Faible">Faible</option>
+                <option value="Moyenne">Moyenne</option>
+                <option value="Haute">Haute</option>
+              </select>
+            </div>
+
+            <div class="col-md-2">
+              <button class="btn btn-outline-dark w-100 rounded-pill"
+                      (click)="resetFiltres()">
+                <i class="bi bi-x-circle me-1"></i>Reset
+              </button>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- VIDE -->
+        <div *ngIf="incidentsFiltres.length === 0"
+             class="alert alert-light border rounded-4 text-center py-4">
+          <i class="bi bi-inbox fs-2 d-block mb-2"></i>
+          Aucun incident pour ces critères.
+        </div>
+
+        <!-- TABLE -->
+        <div *ngIf="incidentsFiltres.length > 0" class="table-responsive">
+          <div class="d-flex justify-content-end mb-2">
+            <span class="badge bg-dark rounded-pill">
+              {{ incidentsFiltres.length }} résultat(s)
+            </span>
+          </div>
+          <table class="table align-middle">
+            <thead>
+              <tr>
+                <th>Enfant</th>
+                <th>Activité</th>
+                <th>Description</th>
+                <th>Gravité</th>
+                <th>Date</th>
+                <th>Parent</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let incident of incidentsFiltres">
+                <td>{{ incident.enfantNomComplet }}</td>
+                <td>{{ incident.activiteTitre }}</td>
+                <td>{{ incident.description }}</td>
+                <td>
+                  <span class="badge rounded-pill"
+                        [ngClass]="'bg-' + incident.badgeClass">
+                    {{ incident.gravite }}
+                  </span>
+                </td>
+                <td>{{ incident.dateLabel }}</td>
+                <td>
+                  <span class="badge rounded-pill"
+                        [ngClass]="'bg-' + incident.etatParentClass">
+                    {{ incident.etatParentLabel }}
+                  </span>
+                </td>
+
+                <!-- ACTIONS -->
+                <td class="text-end">
+
+                  <!-- Bouton supprimer -->
+                  <button *ngIf="confirmDeleteId !== incident.id"
+                          class="btn btn-sm btn-outline-danger rounded-pill"
+                          (click)="demandeSuppression(incident.id)">
+                    <i class="bi bi-trash"></i>
+                  </button>
+
+                  <!-- Confirmation inline -->
+                  <div *ngIf="confirmDeleteId === incident.id"
+                       class="d-flex gap-1 justify-content-end">
+                    <button class="btn btn-sm btn-danger rounded-pill"
+                            (click)="confirmerSuppression(incident.id)">
+                      <i class="bi bi-check me-1"></i>Confirmer
+                    </button>
+                    <button class="btn btn-sm btn-outline-secondary rounded-pill"
+                            (click)="annulerSuppression()">
+                      <i class="bi bi-x"></i>
+                    </button>
+                  </div>
+
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</div>

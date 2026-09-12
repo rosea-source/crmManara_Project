@@ -1,0 +1,97 @@
+<app-navbar></app-navbar>
+<main class="container-fluid p-0 login-main">
+  <div class="row g-0 login-row shadow-lg">
+
+    <!-- Image -->
+    <div class="col-lg-6 d-none d-lg-block position-relative p-0 overflow-hidden">
+      <img src="assets/images/login-image.jpg" alt="Communauté Manara" class="w-100 h-100 object-fit-cover">
+      <div class="position-absolute bottom-0 start-0 w-100 p-5 bg-dark bg-opacity-50 text-white">
+        <span class="badge bg-warning text-dark mb-3 px-3 py-2 rounded-pill fw-bold">Espace Membres</span>
+        <h2 class="opacity-75 fw-bold">Ravi de vous revoir.</h2>
+        <p class="lead opacity-75">Rejoignez vos activités et partagez avec la communauté.</p>
+      </div>
+    </div>
+
+    <!-- Formulaire -->
+    <div class="col-lg-6 d-flex align-items-center justify-content-center bg-white p-4 p-md-5">
+      <div class="w-100" style="max-width: 400px;">
+
+        <div class="text-center text-lg-start mb-5">
+          <h1 class="fw-bold text-dark display-6">Connexion</h1>
+          <p class="text-muted">Accédez à votre tableau de bord personnel</p>
+        </div>
+
+        <form (ngSubmit)="onSubmit()" #loginForm="ngForm" novalidate>
+
+          <!-- Email -->
+          <div class="mb-4">
+            <label class="form-label fw-semibold small text-uppercase text-muted">Adresse Email</label>
+            <div class="input-group">
+              <span class="input-group-text bg-light border-end-0 text-muted">
+                <i class="bi bi-envelope"></i>
+              </span>
+              <input type="email" name="email"
+                     [(ngModel)]="credentials.email"
+                     [class.is-invalid]="errors['email']"
+                     class="form-control form-control-lg bg-light border-start-0 fs-6"
+                     placeholder="ex: jean@mail.com">
+            </div>
+            <div class="text-danger small mt-1" *ngIf="errors['email']">
+              {{ errors['email'] }}
+            </div>
+          </div>
+
+          <!-- Password -->
+          <div class="mb-3">
+            <label class="form-label fw-semibold small text-uppercase text-muted">Mot de passe</label>
+            <div class="input-group">
+              <span class="input-group-text bg-light border-end-0 text-muted">
+                <i class="bi bi-lock"></i>
+              </span>
+              <input type="password" name="password"
+                     [(ngModel)]="credentials.password"
+                     [class.is-invalid]="errors['password']"
+                     class="form-control form-control-lg bg-light border-start-0 fs-6"
+                     placeholder="••••••••">
+            </div>
+            <div class="text-danger small mt-1" *ngIf="errors['password']">
+              {{ errors['password'] }}
+            </div>
+          </div>
+
+          <!-- Logout success -->
+          <div class="alert alert-success d-flex align-items-center py-2 mb-4" *ngIf="logoutSuccess">
+            <i class="bi bi-check-circle-fill me-2"></i>
+            <span class="small">Vous êtes déconnecté avec succès</span>
+          </div>
+
+          <!-- Erreur globale -->
+          <div class="alert alert-danger d-flex align-items-center py-2 mb-4" *ngIf="errorMessage">
+            <i class="bi bi-exclamation-triangle-fill me-2"></i>
+            <span class="small">{{ errorMessage }}</span>
+          </div>
+
+          <!-- Submit -->
+          <button type="submit"
+                  class="btn action-btn w-100 btn-lg fw-bold py-3 shadow-sm mt-2 d-flex align-items-center justify-content-center"
+                  [disabled]="loading">
+            <span *ngIf="loading" class="spinner-border spinner-border-sm me-2"></span>
+            {{ loading ? 'Connexion...' : 'Se connecter' }}
+            <i *ngIf="!loading" class="bi bi-arrow-right ms-2"></i>
+          </button>
+
+        </form>
+
+        <div class="text-center mt-5">
+          <p class="text-muted mb-0">Nouveau parmi nous ?</p>
+          <a routerLink="/register"
+             class="btn btn-link text-dark fw-bold text-decoration-none border-bottom border-2 border-warning p-0">
+            Créer un compte Manara
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</main>
+<app-footer></app-footer>

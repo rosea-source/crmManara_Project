@@ -1,0 +1,129 @@
+/* 
+   Configuration Manara 
+   Auteur: Rose Alexandra
+*/
+
+:root {
+    --sidebar-width: 250px;
+    --sidebar-compact-width: 80px;
+    --transition-speed: 0.3s;
+}
+
+/* --- SIDEBAR --- */
+.sidebar {
+    width: var(--sidebar-width);
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: #010c1fe8;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    z-index: 1000;
+    padding: 16px;
+    transition: width var(--transition-speed) ease; /* Animation fluide */
+}
+
+/* Mode compact déclenché par [class.sidebar-compact] */
+.sidebar.sidebar-compact {
+    width: var(--sidebar-compact-width);
+    padding: 16px 8px;
+}
+
+/* --- NAVIGATION --- */
+.sidebar a {
+    text-decoration: none;
+    color: #cbd5e1;
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+    margin-bottom: 8px;
+    white-space: nowrap; /* Empêche le texte de dépasser pendant l'animation */
+}
+
+/* Centre les icônes quand c'est compact */
+.sidebar.sidebar-compact a {
+    justify-content: center;
+    padding: 12px 0;
+}
+
+.sidebar a.active {
+    background: #facc15;
+    color: #0f172a;
+    font-weight: bold;
+}
+
+.sidebar a:hover:not(.active) {
+    background: rgba(250, 204, 21, 0.2);
+    color: #facc15;
+}
+
+/* --- LE CONTENU PRINCIPAL (Correction de l'espace vide) --- */
+.content {
+    /* Très important: Cette marge doit correspondre à la largeur de la sidebar */
+    margin-left: var(--sidebar-width); 
+    padding: 20px 32px;
+    transition: margin-left var(--transition-speed) ease;
+    min-height: 100vh;
+}
+
+/* Quand la sidebar juste avant est compacte, on réduit la marge du contenu */
+.sidebar.sidebar-compact + .content {
+    margin-left: var(--sidebar-compact-width);
+}
+
+/* --- LOGO ET ÉLÉMENTS --- */
+.logo-box {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+}
+
+.sidebar-nav {
+    overflow-y: auto;
+    flex-grow: 1;
+    scrollbar-width: none; /* Cache la barre de défilement sur Firefox */
+}
+
+.sidebar-nav::-webkit-scrollbar {
+    display: none; /* Cache la barre de défilement sur Chrome/Edge */
+}
+
+/* --- RESPONSIVE : GESTION DE LA VISIBILITÉ --- */
+
+@media (max-width: 1024px) {
+    /* Au lieu de disparaître, on force simplement la sidebar 
+       à rester visible mais on peut ajuster sa taille si besoin */
+    .sidebar {
+        transform: translateX(0) !important; /* Force la présence à l'écran */
+        position: fixed;
+    }
+
+    /* On s'assure que le contenu laisse toujours la place 
+       selon si c'est compact ou non */
+    .content {
+        margin-left: var(--sidebar-width) !important;
+    }
+
+    .sidebar.sidebar-compact + .content {
+        margin-left: var(--sidebar-compact-width) !important;
+    }
+}
+
+/* Uniquement pour les TRÈS petits écrans (téléphones en portrait) */
+@media (max-width: 480px) {
+    .sidebar {
+        transform: translateX(-100%); /* Là, on la cache vraiment */
+    }
+    .content {
+        margin-left: 0 !important;
+    }
+    /* Si tu as un bouton menu, il devra ajouter une classe .show */
+    .sidebar.show {
+        transform: translateX(0);
+    }
+}

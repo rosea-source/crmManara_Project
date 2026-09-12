@@ -1,0 +1,193 @@
+<div class="d-flex">
+  <app-sidebar-admin></app-sidebar-admin>
+
+  <div class="content flex-grow-1 p-4 bg-light">
+    <div class="container" style="max-width: 1000px;">
+
+      <div *ngIf="!user" class="text-center py-5 text-muted">Chargement...</div>
+
+      <div *ngIf="user">
+
+        <!-- HEADER -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+          <div class="d-flex align-items-center gap-3">
+            <a routerLink="/admin/users"
+               class="btn btn-outline-dark rounded-circle d-flex align-items-center justify-content-center"
+               style="width:42px;height:42px;">
+              <i class="bi bi-arrow-left"></i>
+            </a>
+            <div>
+              <h2 class="fw-bold mb-0">Profil utilisateur</h2>
+              <small class="text-muted">Vue détaillée du compte</small>
+            </div>
+          </div>
+          <a [routerLink]="['/admin/users/edit', user.id]" class="btn btn-dark rounded-pill px-4">
+            Modifier
+          </a>
+        </div>
+
+        <!-- PROFIL -->
+        <div class="card border-0 shadow rounded-4 overflow-hidden">
+          <div class="bg-dark text-white p-4">
+            <div class="d-flex align-items-center gap-4">
+              <div class="rounded-circle bg-white text-dark d-flex align-items-center justify-content-center fw-bold"
+                   style="width:70px;height:70px;font-size:24px;">
+                {{ user.prenom?.charAt(0) }}{{ user.nom?.charAt(0) }}
+              </div>
+              <div>
+                <h3 class="mb-1 fw-bold">{{ user.prenom }} {{ user.nom }}</h3>
+                <small class="text-light opacity-75">{{ getRoleLabel(user.role) }}</small>
+              </div>
+            </div>
+          </div>
+
+          <div class="p-4 bg-white">
+            <div class="row g-4">
+
+              <!-- EMAIL -->
+              <div class="col-md-6">
+                <div class="border rounded-4 p-3">
+                  <small class="text-muted">Email</small>
+                  <div class="fw-semibold mt-1">{{ user.email }}</div>
+                  <a [href]="'mailto:' + user.email"
+                     class="btn btn-sm btn-outline-dark rounded-pill mt-2">
+                    <i class="bi bi-envelope me-1"></i> Contacter
+                  </a>
+                </div>
+              </div>
+
+              <!-- TÉLÉPHONE -->
+              <div class="col-md-6">
+                <div class="border rounded-4 p-3">
+                  <small class="text-muted">Téléphone</small>
+                  <div class="fw-semibold mt-1">{{ user.telephone || '-' }}</div>
+                  <a *ngIf="user.telephone" [href]="'tel:' + user.telephone"
+                     class="btn btn-sm btn-outline-dark rounded-pill mt-2">
+                    <i class="bi bi-telephone me-1"></i> Appeler
+                  </a>
+                </div>
+              </div>
+
+              <!-- PARENT -->
+              <ng-container *ngIf="user.role === 'ROLE_PARENT'">
+                <div class="col-md-6">
+                  <div class="border rounded-4 p-3">
+                    <small class="text-muted">Adresse</small>
+                    <div class="fw-semibold mt-1">{{ user.adresse || '-' }}</div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="border rounded-4 p-3">
+                    <small class="text-muted">Nombre d'enfants</small>
+                    <div class="fw-semibold mt-1">{{ user.enfants?.length || 0 }}</div>
+                  </div>
+                </div>
+              </ng-container>
+
+              <!-- ANIMATEUR -->
+              <ng-container *ngIf="user.role === 'ROLE_ANIMATEUR'">
+                <div class="col-md-6">
+                  <div class="border rounded-4 p-3">
+                    <small class="text-muted">Diplôme</small>
+                    <div class="fw-semibold mt-1">{{ user.diplome || '-' }}</div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="border rounded-4 p-3">
+                    <small class="text-muted">Spécialité</small>
+                    <div class="fw-semibold mt-1">{{ user.specialite || '-' }}</div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="border rounded-4 p-3">
+                    <small class="text-muted">Date d'embauche</small>
+                    <div class="fw-semibold mt-1">{{ user.dateEmbauche || '-' }}</div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="border rounded-4 p-3">
+                    <small class="text-muted">Nombre de sessions</small>
+                    <div class="fw-semibold mt-1">{{ user.sessions?.length || 0 }}</div>
+                  </div>
+                </div>
+              </ng-container>
+
+            </div>
+          </div>
+        </div>
+
+        <!-- ENFANTS -->
+        <div *ngIf="user.role === 'ROLE_PARENT'" class="mt-4">
+          <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+            <div class="p-3 bg-white border-bottom">
+              <h5 class="fw-bold mb-0">Enfants enregistrés</h5>
+            </div>
+            <table class="table table-hover align-middle text-center mb-0">
+              <thead class="table-dark">
+                <tr>
+                  <th>Nom</th>
+                  <th>Prénom</th>
+                  <th>Date naissance</th>
+                  <th>Sessions</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngIf="!user.enfants || user.enfants.length === 0">
+                  <td colspan="5" class="text-muted py-4">Aucun enfant</td>
+                </tr>
+                <tr *ngFor="let e of user.enfants">
+                  <td>{{ e.nom }}</td>
+                  <td>{{ e.prenom }}</td>
+                  <td class="text-muted">{{ e.dateNaissance || '-' }}</td>
+                  <td>
+                    <span class="badge bg-dark px-3 py-2">{{ e.nbSessions }}</span>
+                  </td>
+                  <td>
+                    <a [routerLink]="['/admin/enfants', e.id]"
+                       class="btn btn-sm btn-outline-dark rounded-pill px-3">
+                      Voir
+                    </a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- SESSIONS ANIMATEUR -->
+        <div *ngIf="user.role === 'ROLE_ANIMATEUR'" class="mt-4">
+          <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+            <div class="p-3 bg-white border-bottom">
+              <h5 class="fw-bold mb-0">Sessions encadrées</h5>
+            </div>
+            <table class="table table-hover align-middle text-center mb-0">
+              <thead class="table-dark">
+                <tr>
+                  <th>Activité</th>
+                  <th>Date</th>
+                  <th>Lieu</th>
+                  <th>Statut</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngIf="!user.sessions || user.sessions.length === 0">
+                  <td colspan="4" class="text-muted py-4">Aucune session</td>
+                </tr>
+                <tr *ngFor="let s of user.sessions">
+                  <td>{{ s.activiteTitre }}</td>
+                  <td class="text-muted">{{ s.dateDebut }}</td>
+                  <td>{{ s.lieu }}</td>
+                  <td>
+                    <span class="badge bg-dark px-3 py-2">{{ s.statut }}</span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

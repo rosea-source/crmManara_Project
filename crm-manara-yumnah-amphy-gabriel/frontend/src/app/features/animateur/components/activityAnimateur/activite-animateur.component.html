@@ -1,0 +1,122 @@
+<!-- src/app/features/animateur/components/activityAnimateur/activite-animateur.component.html -->
+<div class="d-flex">
+
+  <app-sidebar-animateur></app-sidebar-animateur>
+
+  <div class="content flex-grow-1 p-4 p-lg-5">
+
+    <!-- HEADER -->
+    <div class="mb-4">
+      <h2 class="fw-bold mb-1">Activités</h2>
+      <p class="text-muted mb-0">Historique des événements récents</p>
+    </div>
+
+    <!-- LOADING -->
+    <div *ngIf="loading" class="text-center py-5">
+      <div class="spinner-border text-secondary" role="status"></div>
+    </div>
+
+    <!-- EMPTY (pas de données du tout) -->
+    <div *ngIf="!loading && isEmpty"
+         class="card border-0 shadow-sm rounded-4 text-center p-5 mx-auto"
+         style="max-width: 700px;">
+      <i class="bi bi-inbox fs-1 text-muted"></i>
+      <h5 class="mt-3">Aucune activité</h5>
+      <p class="text-muted mb-0">Rien à afficher pour le moment</p>
+    </div>
+
+    <div *ngIf="!loading && !isEmpty" class="mx-auto" style="max-width: 700px;">
+
+      <!-- FILTRES -->
+      <div class="card border-0 bg-light rounded-4 p-3 mb-4">
+        <div class="row g-3 align-items-end">
+
+          <!-- Filtre par jour -->
+          <div class="col-md-5">
+            <label class="form-label fw-bold small text-uppercase text-muted">
+              <i class="bi bi-calendar3 me-1"></i>Jour
+            </label>
+            <select [(ngModel)]="filtreJour"
+                    class="form-select border-0 bg-white rounded-pill">
+              <option value="">Tous les jours</option>
+              <option *ngFor="let j of tousLesJours" [value]="j">{{ j }}</option>
+            </select>
+          </div>
+
+          <!-- Recherche par titre -->
+          <div class="col-md-5">
+            <label class="form-label fw-bold small text-uppercase text-muted">
+              <i class="bi bi-search me-1"></i>Activité
+            </label>
+            <input type="text"
+                   [(ngModel)]="filtreTitre"
+                   class="form-control border-0 bg-white rounded-pill"
+                   placeholder="Rechercher...">
+          </div>
+
+          <!-- Reset -->
+          <div class="col-md-2">
+            <button class="btn btn-outline-dark w-100 rounded-pill"
+                    (click)="resetFiltres()">
+              <i class="bi bi-x-circle"></i>
+            </button>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- VIDE après filtre -->
+      <div *ngIf="isVideApresFiltre"
+           class="card border-0 shadow-sm rounded-4 text-center p-5">
+        <i class="bi bi-funnel fs-1 text-muted"></i>
+        <h5 class="mt-3">Aucun résultat</h5>
+        <p class="text-muted mb-0">Aucune activité ne correspond à ces critères</p>
+      </div>
+
+      <!-- FEED -->
+      <ng-container *ngIf="!isVideApresFiltre">
+        <div *ngFor="let jour of jours">
+
+          <!-- Vérifier qu'il y a des items pour ce jour -->
+          <ng-container *ngIf="getItemsFiltres(jour).length > 0">
+
+            <!-- DATE LABEL -->
+            <h6 class="text-muted fw-bold mt-4 mb-3">{{ jour }}</h6>
+
+            <!-- ITEMS -->
+            <div *ngFor="let item of getItemsFiltres(jour)"
+                 class="card border-0 shadow-sm rounded-4 mb-3">
+
+              <div class="card-body p-3">
+                <div class="d-flex align-items-start gap-3">
+
+                  <!-- ICON -->
+                  <div class="rounded-circle d-flex align-items-center justify-content-center"
+                       [ngClass]="'bg-' + item.borderClass + ' bg-opacity-10'"
+                       style="width:45px; height:45px; flex-shrink:0;">
+                    <i [ngClass]="'bi ' + item.iconClass + ' text-' + item.borderClass"></i>
+                  </div>
+
+                  <!-- CONTENT -->
+                  <div class="flex-grow-1">
+                    <div class="d-flex justify-content-between align-items-center">
+                      <span class="fw-semibold">{{ item.titre }}</span>
+                      <small class="text-muted">{{ item.heureLabel }}</small>
+                    </div>
+                    <div class="text-muted small mt-1"
+                         [innerHTML]="item.contenuHtml">
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+            </div>
+
+          </ng-container>
+        </div>
+      </ng-container>
+
+    </div>
+  </div>
+</div>

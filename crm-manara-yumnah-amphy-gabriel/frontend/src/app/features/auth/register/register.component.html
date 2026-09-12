@@ -1,0 +1,181 @@
+<app-navbar></app-navbar>
+
+<main class="container-fluid p-0 login-main">
+  <div class="row g-0 login-row shadow-lg">
+
+    <!-- Formulaire -->
+    <div class="col-lg-6 d-flex align-items-center justify-content-center bg-white p-4 p-md-5 order-2 order-lg-1">
+      <div class="w-100" style="max-width: 500px;">
+
+        <div class="text-center text-lg-start mb-4">
+          <h1 class="fw-bold text-dark display-6">Créer un compte</h1>
+          <p class="text-muted">Rejoignez la communauté Manara dès aujourd'hui.</p>
+        </div>
+
+        <!-- ERREUR -->
+        <div class="alert alert-danger py-2 small rounded-3" *ngIf="errorMessage">
+          <i class="bi bi-exclamation-circle me-2"></i>{{ errorMessage }}
+        </div>
+
+        <!-- SUCCESS -->
+        <div class="alert alert-success py-2 small rounded-3" *ngIf="successMessage">
+          <i class="bi bi-check-circle me-2"></i>{{ successMessage }}
+        </div>
+
+        <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+
+          <!-- PRENOM / NOM -->
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label class="form-label fw-semibold small text-uppercase text-muted">Prénom</label>
+              <input type="text"
+                     formControlName="prenom"
+                     (keypress)="allowOnlyLetters($event)"
+                     class="form-control form-control-lg bg-light fs-6"
+                     [class.is-invalid]="f.prenom.touched && f.prenom.invalid"
+                     placeholder="Jean">
+
+              <div class="invalid-feedback" *ngIf="f.prenom.touched && f.prenom.errors">
+                <span *ngIf="f.prenom.errors['required']">Le prénom est requis</span>
+                <span *ngIf="f.prenom.errors['pattern']">Le prénom ne doit contenir que des lettres</span>
+              </div>
+            </div>
+
+            <div class="col-md-6 mb-3">
+              <label class="form-label fw-semibold small text-uppercase text-muted">Nom</label>
+              <input type="text"
+                     formControlName="nom"
+                     (keypress)="allowOnlyLetters($event)"
+                     class="form-control form-control-lg bg-light fs-6"
+                     [class.is-invalid]="f.nom.touched && f.nom.invalid"
+                     placeholder="Dupont">
+
+              <div class="invalid-feedback" *ngIf="f.nom.touched && f.nom.errors">
+                <span *ngIf="f.nom.errors['required']">Le nom est requis</span>
+                <span *ngIf="f.nom.errors['pattern']">Le nom ne doit contenir que des lettres</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- EMAIL -->
+          <div class="mb-3">
+            <label class="form-label fw-semibold small text-uppercase text-muted">Adresse Email</label>
+
+            <div class="input-group">
+              <span class="input-group-text bg-light border-end-0 text-muted">
+                <i class="bi bi-envelope"></i>
+              </span>
+
+              <input type="email"
+                     formControlName="email"
+                     class="form-control form-control-lg bg-light border-start-0 fs-6"
+                     [class.is-invalid]="f.email.touched && f.email.invalid"
+                     placeholder="jean@mail.com">
+            </div>
+
+            <div class="text-danger small mt-1" *ngIf="f.email.touched && f.email.errors">
+              <span *ngIf="f.email.errors['required']">Email requis</span>
+              <span *ngIf="f.email.errors['email']">Email invalide</span>
+            </div>
+          </div>
+
+          <!-- TELEPHONE -->
+          <div class="mb-3">
+            <label class="form-label fw-semibold small text-uppercase text-muted">
+              Téléphone <span class="text-muted fw-normal">(optionnel)</span>
+            </label>
+
+            <div class="input-group">
+              <span class="input-group-text bg-light border-end-0 text-muted">
+                <i class="bi bi-telephone"></i>
+              </span>
+
+              <input type="tel"
+                     formControlName="telephone"
+                     class="form-control form-control-lg bg-light border-start-0 fs-6"
+                     [class.is-invalid]="f.telephone.touched && f.telephone.invalid"
+                     placeholder="06 12 34 56 78">
+            </div>
+
+            <div class="text-danger small mt-1" *ngIf="f.telephone.touched && f.telephone.errors">
+              Numéro invalide
+            </div>
+          </div>
+
+          <!-- PASSWORD -->
+          <div class="mb-4">
+            <label class="form-label fw-semibold small text-uppercase text-muted">Mot de passe</label>
+
+            <div class="input-group">
+              <span class="input-group-text bg-light border-end-0 text-muted">
+                <i class="bi bi-lock"></i>
+              </span>
+
+              <input type="password"
+                     formControlName="password"
+                     class="form-control form-control-lg bg-light border-start-0 fs-6"
+                     [class.is-invalid]="f.password.touched && f.password.invalid"
+                     placeholder="••••••••">
+            </div>
+
+            <div class="text-danger small mt-1" *ngIf="f.password.touched && f.password.errors">
+              <span *ngIf="f.password.errors['required']">Mot de passe requis</span>
+              <span *ngIf="f.password.errors['minlength']">Minimum 6 caractères</span>
+            </div>
+
+            <!-- FORCE PASSWORD -->
+            <div *ngIf="f.password.value" class="mt-2">
+              <div class="progress" style="height: 4px;">
+                <div class="progress-bar"
+                     [class.bg-danger]="f.password.value.length < 6"
+                     [class.bg-warning]="f.password.value.length >= 6 && f.password.value.length < 10"
+                     [class.bg-success]="f.password.value.length >= 10"
+                     [style.width.%]="f.password.value.length < 6 ? 33 : f.password.value.length < 10 ? 66 : 100">
+                </div>
+              </div>
+
+              <small class="text-muted">
+                Force :
+                <span [class.text-danger]="f.password.value.length < 6"
+                      [class.text-warning]="f.password.value.length < 10 && f.password.value.length >= 6"
+                      [class.text-success]="f.password.value.length >= 10">
+                  {{ f.password.value.length < 6 ? 'Faible' : f.password.value.length < 10 ? 'Moyen' : 'Fort' }}
+                </span>
+              </small>
+            </div>
+          </div>
+
+          <!-- SUBMIT -->
+          <button type="submit"
+                  class="btn action-btn w-100 btn-lg fw-bold py-3 shadow-sm d-flex align-items-center justify-content-center"
+                  [disabled]="loading || form.invalid">
+
+            <span *ngIf="loading" class="spinner-border spinner-border-sm me-2"></span>
+
+            {{ loading ? 'Création...' : 'Créer mon compte' }}
+
+            <i *ngIf="!loading" class="bi bi-check-circle ms-2"></i>
+          </button>
+
+        </form>
+
+        <div class="text-center mt-4">
+          <p class="text-muted mb-0">Déjà membre ?</p>
+          <a routerLink="/login"
+             class="btn btn-link text-dark fw-bold text-decoration-none border-bottom border-2 border-warning p-0">
+            Se connecter à Manara
+          </a>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- IMAGE -->
+    <div class="col-lg-6 d-none d-lg-block position-relative p-0 overflow-hidden order-1 order-lg-2">
+      <img src="assets/images/register-image.jpg" class="w-100 h-100 object-fit-cover">
+    </div>
+
+  </div>
+</main>
+
+<app-footer></app-footer>

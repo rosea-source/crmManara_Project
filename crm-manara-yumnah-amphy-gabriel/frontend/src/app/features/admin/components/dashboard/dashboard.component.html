@@ -1,0 +1,143 @@
+<div class="d-flex">
+  <app-sidebar-admin></app-sidebar-admin>
+
+  <div class="content flex-grow-1 p-4 p-lg-5">
+
+    <!-- HEADER -->
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-end mb-5 gap-3">
+      <div>
+        <h1 class="fw-bold mb-1 ">Bienvenue, Administrateur</h1>
+        <p class="text-muted mb-0">Vue globale de la plateforme Manara</p>
+      </div>
+      <a routerLink="/admin/sessions/create" class="btn action-btn fw-bold shadow-sm px-4">
+        <i class="bi bi-plus-circle me-2"></i> Nouvelle Session
+      </a>
+    </div>
+
+    <!-- STATS CARDS -->
+    <div class="row g-4">
+      <div class="col-12 col-sm-6 col-lg-3">
+        <div class="stats-box hover-card p-4 shadow-sm h-100 text-center border-0">
+          <i class="bi bi-people-fill fs-1 text-primary"></i>
+          <h2 class="fw-bold mt-3 mb-1">{{ stats.usersCount || 0 }}</h2>
+          <div class="text-secondary text-uppercase small fw-semibold">Familles</div>
+        </div>
+      </div>
+      <div class="col-12 col-sm-6 col-lg-3">
+        <div class="stats-box hover-card p-4 shadow-sm h-100 text-center border-0">
+          <i class="bi bi-journal-bookmark-fill fs-1 text-success"></i>
+          <h2 class="fw-bold mt-3 mb-1">{{ stats.activitiesCount || 0 }}</h2>
+          <div class="text-secondary text-uppercase small fw-semibold">Activités</div>
+        </div>
+      </div>
+      <div class="col-12 col-sm-6 col-lg-3">
+        <div class="stats-box hover-card p-4 shadow-sm h-100 text-center border-0">
+          <i class="bi bi-calendar-check-fill fs-1 text-warning"></i>
+          <h2 class="fw-bold mt-3 mb-1">{{ stats.sessionsCount || 0 }}</h2>
+          <div class="text-secondary text-uppercase small fw-semibold">Sessions</div>
+        </div>
+      </div>
+      <div class="col-12 col-sm-6 col-lg-3">
+        <div class="stats-box hover-card p-4 shadow-sm h-100 text-center border-0">
+          <i class="bi bi-person-badge-fill fs-1 text-danger"></i>
+          <h2 class="fw-bold mt-3 mb-1">{{ stats.animateursCount || 0 }}</h2>
+          <div class="text-secondary text-uppercase small fw-semibold">Animateurs</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RÉSUMÉ + ALERTES -->
+    <div class="row mt-5 g-4">
+      <div class="col-lg-6">
+        <div class="card border-0 shadow-sm rounded-4 p-4 h-100">
+          <h5 class="fw-bold mb-4"><i class="bi bi-cpu me-2"></i>Résumé système</h5>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+              Sessions prévues
+              <span class="badge bg-success rounded-pill">{{ stats.prevues || 0 }}</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+              Sessions en cours
+              <span class="badge bg-warning text-dark rounded-pill">{{ stats.enCours || 0 }}</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+              Sessions terminées
+              <span class="badge bg-secondary rounded-pill">{{ stats.terminees || 0 }}</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center px-0 border-bottom-0">
+              Sessions annulées
+              <span class="badge bg-danger rounded-pill">{{ stats.annulees || 0 }}</span>
+            </li>
+          </ul>
+          <hr class="text-muted">
+          <small class="text-muted">
+            <i class="bi bi-clock-history me-1"></i>
+            Dernière mise à jour : {{ stats.lastUpdate | date:'short' }}
+          </small>
+        </div>
+      </div>
+
+      <div class="col-lg-6">
+        <div class="card border-0 shadow-sm rounded-4 p-4 h-100">
+          <h5 class="fw-bold mb-4 text-danger">
+            <i class="bi bi-exclamation-triangle me-2"></i>Alertes système
+          </h5>
+          <div class="alert alert-warning border-0 rounded-3 shadow-sm mb-3">
+            <i class="bi bi-info-circle-fill me-2"></i>Vérifier les sessions annulées.
+          </div>
+          <div class="alert alert-info border-0 rounded-3 shadow-sm mb-3">
+            <i class="bi bi-person-check-fill me-2"></i>
+            Nombre total d'animateurs : <strong>{{ stats.animateursCount || 0 }}</strong>
+          </div>
+          <div class="alert alert-success border-0 rounded-3 shadow-sm">
+            <i class="bi bi-check-circle-fill me-2"></i>Plateforme active et synchronisée.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SESSIONS RÉCENTES -->
+    <div class="row mt-5">
+      <div class="col-12">
+        <div class="card border-0 shadow-sm rounded-4 p-4">
+          <div class="d-flex justify-content-between align-items-center mb-4">
+            <h5 class="fw-bold mb-0">Sessions récentes</h5>
+            <a routerLink="/admin/sessions" class="btn btn-sm btn-link text-decoration-none fw-bold">
+              Voir tout
+            </a>
+          </div>
+          <div class="table-responsive">
+            <table class="table align-middle">
+              <thead class="table-light">
+                <tr>
+                  <th class="border-0">Date</th>
+                  <th class="border-0">Activité</th>
+                  <th class="border-0">Animateur</th>
+                  <th class="border-0">Statut</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let s of recentSessions">
+                  <td class="text-muted">{{ s.dateDebut }}</td>
+                  <td><strong>{{ s.activiteTitre }}</strong></td>
+                  <td>{{ s.animateurNom }}</td>
+                  <td>
+                    <span [class]="'badge rounded-pill ' + getStatutClass(s.statut)">
+                      {{ s.statut }}
+                    </span>
+                  </td>
+                </tr>
+                <tr *ngIf="recentSessions.length === 0">
+                  <td colspan="4" class="text-center text-muted py-4">
+                    Aucune session récente
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

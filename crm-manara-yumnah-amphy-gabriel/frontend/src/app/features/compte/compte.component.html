@@ -1,0 +1,199 @@
+<!-- src/app/features/compte/compte.component.html -->
+<div class="d-flex">
+
+  <!-- SIDEBAR selon le rôle -->
+  <app-sidebar-animateur *ngIf="isAnimateur"></app-sidebar-animateur>
+  <app-sidebar-parent    *ngIf="isParent"></app-sidebar-parent>
+
+  <div class="content flex-grow-1 p-4 p-lg-5 bg-light">
+
+    <!-- HEADER -->
+    <div class="mb-4">
+      <h2 class="fw-bold mb-1">Paramètres du compte</h2>
+      <p class="text-muted mb-0">Gérez vos informations personnelles et votre sécurité</p>
+    </div>
+
+    <!-- LOADING -->
+    <div *ngIf="loading" class="text-center py-5">
+      <div class="spinner-border text-dark"></div>
+    </div>
+
+    <div *ngIf="!loading" class="card border-0 shadow-sm rounded-4">
+      <div class="card-body p-4 p-md-5">
+
+        <!-- ALERTS -->
+        <div *ngIf="successMessage" class="alert alert-success alert-dismissible rounded-4">
+          <i class="bi bi-check-circle-fill me-2"></i>{{ successMessage }}
+          <button type="button" class="btn-close" (click)="successMessage=''"></button>
+        </div>
+        <div *ngIf="errorMessage" class="alert alert-danger alert-dismissible rounded-4">
+          <i class="bi bi-exclamation-triangle me-2"></i>{{ errorMessage }}
+          <button type="button" class="btn-close" (click)="errorMessage=''"></button>
+        </div>
+
+        <form (ngSubmit)="submit()">
+
+          <!-- INFOS PROFIL -->
+          <div class="row align-items-center mb-5">
+
+            <!-- AVATAR -->
+            <div class="col-md-4 text-center">
+              <div class="position-relative d-inline-block">
+                <div class="rounded-circle bg-light d-flex align-items-center justify-content-center shadow-sm border"
+                     style="width:140px;height:140px;font-size:3rem;">
+                  <i class="bi bi-person-circle"></i>
+                </div>
+              </div>
+              <div class="mt-2">
+                <small class="text-muted">Photo de profil</small>
+              </div>
+              <div class="mt-2">
+                <span *ngIf="isAnimateur" class="badge bg-dark rounded-pill px-3">
+                  <i class="bi bi-person-badge me-1"></i>Animateur
+                </span>
+                <span *ngIf="isParent" class="badge bg-secondary rounded-pill px-3">
+                  <i class="bi bi-people me-1"></i>Parent
+                </span>
+              </div>
+            </div>
+
+            <!-- FORM INFOS DE BASE -->
+            <div class="col-md-8">
+              <div class="row g-3">
+
+                <div class="col-md-6">
+                  <label class="form-label text-uppercase small fw-semibold text-muted">Prénom</label>
+                  <input type="text"
+                         [(ngModel)]="form.prenom"
+                         name="prenom"
+                         class="form-control bg-light border-0 rounded-3 py-2">
+                </div>
+
+                <div class="col-md-6">
+                  <label class="form-label text-uppercase small fw-semibold text-muted">Nom</label>
+                  <input type="text"
+                         [(ngModel)]="form.nom"
+                         name="nom"
+                         class="form-control bg-light border-0 rounded-3 py-2">
+                </div>
+
+                <div class="col-12">
+                  <label class="form-label text-uppercase small fw-semibold text-muted">Email</label>
+                  <input type="email"
+                         [(ngModel)]="form.email"
+                         name="email"
+                         class="form-control bg-light border-0 rounded-3 py-2">
+                </div>
+
+                <div class="col-12">
+                  <label class="form-label text-uppercase small fw-semibold text-muted">Téléphone</label>
+                  <input type="tel"
+                         [(ngModel)]="form.telephone"
+                         name="telephone"
+                         class="form-control bg-light border-0 rounded-3 py-2"
+                         placeholder="Ex: 0612345678">
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+          <hr class="my-4">
+
+          <!-- CHAMPS PARENT : Adresse -->
+          <div *ngIf="isParent">
+            <div class="mb-3">
+              <h5 class="fw-bold mb-1">
+                <i class="bi bi-geo-alt me-2"></i>Adresse
+              </h5>
+            </div>
+            <div class="mb-4">
+              <label class="form-label text-muted small">Adresse</label>
+              <input type="text"
+                     [(ngModel)]="form.adresse"
+                     name="adresse"
+                     class="form-control bg-light border-0 rounded-3 py-2"
+                     placeholder="Votre adresse...">
+            </div>
+            <hr class="my-4">
+          </div>
+
+          <!-- CHAMPS ANIMATEUR : Diplôme, Spécialité, Date embauche -->
+          <div *ngIf="isAnimateur">
+            <div class="mb-3">
+              <h5 class="fw-bold mb-1">
+                <i class="bi bi-award me-2"></i>Informations professionnelles
+              </h5>
+              <small class="text-muted">Votre profil en tant qu'animateur</small>
+            </div>
+            <div class="row g-3 mb-4">
+
+              <div class="col-md-6">
+                <label class="form-label text-muted small">Diplôme</label>
+                <input type="text"
+                       [(ngModel)]="form.diplome"
+                       name="diplome"
+                       class="form-control bg-light border-0 rounded-3 py-2"
+                       placeholder="Ex: BPJEPS, DEJEPS...">
+              </div>
+
+              <div class="col-md-6">
+                <label class="form-label text-muted small">Spécialité</label>
+                <input type="text"
+                       [(ngModel)]="form.specialite"
+                       name="specialite"
+                       class="form-control bg-light border-0 rounded-3 py-2"
+                       placeholder="Ex: Arts plastiques, Sport...">
+              </div>
+
+              <div class="col-md-6" *ngIf="compte?.dateEmbauche">
+                <label class="form-label text-muted small">Date d'embauche</label>
+                <input type="text"
+                       [value]="compte?.dateEmbauche"
+                       class="form-control bg-light border-0 rounded-3 py-2"
+                       readonly>
+              </div>
+
+            </div>
+            <hr class="my-4">
+          </div>
+
+          <!-- SÉCURITÉ -->
+          <div class="mb-3">
+            <h5 class="fw-bold mb-1">
+              <i class="bi bi-shield-lock me-2"></i>Sécurité
+            </h5>
+            <small class="text-muted">Laisser vide pour ne pas modifier le mot de passe</small>
+          </div>
+
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label class="form-label text-muted small">Nouveau mot de passe</label>
+              <input type="password"
+                     [(ngModel)]="form.motDePasse"
+                     name="motDePasse"
+                     class="form-control bg-light border-0 rounded-3 py-2">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label text-muted small">Confirmer</label>
+              <input type="password"
+                     [(ngModel)]="form.motDePasseConf"
+                     name="motDePasseConf"
+                     class="form-control bg-light border-0 rounded-3 py-2">
+            </div>
+          </div>
+
+          <!-- BUTTON -->
+          <div class="text-end mt-5">
+            <button type="submit" class="btn btn-dark rounded-pill px-5 py-2">
+              <i class="bi bi-check2-circle me-2"></i>Mettre à jour
+            </button>
+          </div>
+
+        </form>
+
+      </div>
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,134 @@
+<div class="d-flex min-vh-100">
+  <app-sidebar-parent></app-sidebar-parent>
+
+  <div class="content flex-grow-1 p-4 p-lg-5 bg-light">
+
+    <div *ngIf="loading" class="text-center py-5">
+      <div class="spinner-border text-dark"></div>
+    </div>
+
+    <div *ngIf="!loading">
+
+      <!-- HEADER -->
+      <div class="mb-4">
+        <h2 class="fw-bold mb-1">Incidents signalés</h2>
+        <p class="text-muted mb-0">Incidents rapportés par les animateurs</p>
+      </div>
+
+      <!-- FILTRES GRAVITÉ -->
+      <div class="mb-3 d-flex gap-2 flex-wrap">
+        <button *ngFor="let g of gravites"
+                class="btn btn-sm rounded-pill"
+                [class.btn-dark]="filterGravite === g"
+                [class.btn-outline-dark]="filterGravite !== g"
+                (click)="onFilter(g)">
+          {{ g }}
+        </button>
+      </div>
+
+      <!-- FILTRES SECONDAIRES -->
+      <div class="card border-0 shadow-sm rounded-4 p-3 mb-4">
+        <div class="row g-2 align-items-end">
+
+          <!-- Barre de recherche -->
+          <div class="col-12 col-md-4">
+            <label class="form-label small text-muted fw-semibold mb-1">
+              <i class="bi bi-search me-1"></i>Recherche
+            </label>
+            <input
+              type="text"
+              class="form-control form-control-sm rounded-3"
+              placeholder="Nom, description, activité..."
+              [(ngModel)]="searchQuery"
+              (ngModelChange)="onSearchChange()">
+          </div>
+
+          <!-- Filtre par enfant -->
+          <div class="col-12 col-md-4">
+            <label class="form-label small text-muted fw-semibold mb-1">
+              <i class="bi bi-person me-1"></i>Enfant
+            </label>
+            <select
+              class="form-select form-select-sm rounded-3"
+              [(ngModel)]="filterEnfant"
+              (ngModelChange)="onEnfantChange()">
+              <option value="">Tous les enfants</option>
+              <option *ngFor="let e of enfantsUniques" [value]="e">{{ e }}</option>
+            </select>
+          </div>
+
+          <!-- Filtre par date -->
+          <div class="col-12 col-md-3">
+            <label class="form-label small text-muted fw-semibold mb-1">
+              <i class="bi bi-calendar me-1"></i>Date
+            </label>
+            <input
+              type="date"
+              class="form-control form-control-sm rounded-3"
+              [(ngModel)]="filterDate"
+              (ngModelChange)="onDateChange()">
+          </div>
+
+          <!-- Bouton reset -->
+          <div class="col-12 col-md-1 d-flex align-items-end">
+            <button
+              class="btn btn-sm btn-outline-secondary rounded-3 w-100"
+              (click)="resetFilters()"
+              title="Réinitialiser">
+              <i class="bi bi-x-lg"></i>
+            </button>
+          </div>
+
+        </div>
+
+        <!-- Résumé des résultats -->
+        <div class="mt-2 pt-2 border-top">
+          <small class="text-muted">
+            <span class="fw-semibold text-dark">{{ filtered.length }}</span>
+            incident{{ filtered.length !== 1 ? 's' : '' }} trouvé{{ filtered.length !== 1 ? 's' : '' }}
+          </small>
+        </div>
+      </div>
+
+      <!-- VIDE -->
+      <div *ngIf="filtered.length === 0" class="text-center text-muted py-5">
+        <i class="bi bi-shield-check fs-1 text-success"></i>
+        <p class="mt-3 fs-5">Aucun incident signalé</p>
+        <small>Tout va bien !</small>
+      </div>
+
+      <!-- LISTE -->
+      <div class="d-flex flex-column gap-3">
+        <div *ngFor="let i of filtered"
+             class="card border-0 shadow-sm rounded-4 p-4">
+
+          <div class="d-flex justify-content-between align-items-start mb-3">
+            <div>
+              <span [class]="'badge rounded-pill mb-2 ' + getBadgeClass(i.gravite)">
+                {{ i.gravite }}
+              </span>
+              <h5 class="fw-bold mb-0">{{ i.enfantNomComplet }}</h5>
+              <small class="text-muted">{{ i.activiteTitre }}</small>
+            </div>
+            <div class="text-end">
+              <small class="text-muted d-block">{{ i.dateLabel }}</small>
+              <span [class]="'badge mt-1 bg-' + i.etatParentClass">
+                {{ i.etatParentLabel }}
+              </span>
+            </div>
+          </div>
+
+          <!-- DESCRIPTION -->
+          <div class="bg-light rounded-3 p-3">
+            <small class="text-muted fw-bold d-block mb-1">
+              <i class="bi bi-file-text me-1"></i> Description
+            </small>
+            <p class="mb-0">{{ i.description }}</p>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

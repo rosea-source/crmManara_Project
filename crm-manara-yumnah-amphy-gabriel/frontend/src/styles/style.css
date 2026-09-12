@@ -1,0 +1,371 @@
+/*
+   Cirius Rose Alexandra - 2026
+   CSS Global Manara
+*/
+
+:root {
+    --color-dark: #0f172a;
+    --color-yellow: #facc15;
+    --color-yellow-hover: #eab308;
+    --color-white: #ffffff;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #f4f6f9;
+    padding-top: 70px;
+    height: 100%;
+}
+
+/* =========================================
+   NAVBAR
+   ========================================= */
+.navbar {
+    background-color: var(--color-dark) !important;
+}
+
+.navbar-nav .nav-link {
+    color: var(--color-white) !important;
+    transition: color 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover {
+    color: var(--color-yellow) !important;
+}
+
+.logo-box {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+/* =========================================
+   BOUTONS
+   ========================================= */
+.btn-primary {
+    background-color: var(--color-yellow) !important;
+    border: none !important;
+    color: var(--color-dark) !important;
+    font-weight: bold;
+    border-radius: 8px;
+}
+
+.btn-primary:hover {
+    background-color: var(--color-yellow-hover) !important;
+    color: var(--color-dark) !important;
+}
+
+.btn-warning {
+    background-color: var(--color-yellow) !important;
+    border: none;
+    color: var(--color-dark);
+    font-weight: bold;
+}
+
+.btn-warning:hover {
+    background-color: var(--color-yellow-hover) !important;
+}
+
+.action-btn {
+    background-color: var(--color-yellow-hover);
+    color: #000;
+    border: none;
+    border-radius: 25px;
+    padding: 8px 18px;
+    transition: background-color 0.3s;
+}
+
+.action-btn:hover {
+    background-color: var(--color-yellow);
+}
+
+/* =========================================
+   MAIN
+   ========================================= */
+main {
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px;
+    flex: 1;
+}
+
+/* =========================================
+   FOOTER
+   ========================================= */
+footer {
+    background-color: var(--color-dark);
+    color: var(--color-white);
+    padding: 20px 0;
+    text-align: center;
+    margin-top: 40px;
+}
+
+footer p {
+    margin: 0;
+}
+
+/* =========================================
+   PAGE LOGIN / REGISTER
+   ========================================= */
+.login-row {
+    min-height: calc(100vh - 70px);
+}
+
+.login-main {
+    max-width: 100% !important;
+    padding: 0 !important;
+}
+
+.input-group input:-webkit-autofill,
+.input-group input:-webkit-autofill:hover,
+.input-group input:-webkit-autofill:focus,
+.input-group input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px #f8f9fa inset !important;
+    -webkit-text-fill-color: var(--color-dark) !important;
+    transition: background-color 5000s ease-in-out 0s;
+}
+
+.input-group .form-control:focus {
+    box-shadow: none;
+    border-color: #dee2e6;
+}
+
+.input-group:focus-within {
+    box-shadow: 0 0 0 0.25rem rgba(250, 204, 21, 0.25);
+    border-radius: 0.375rem;
+}
+
+.input-group:focus-within .input-group-text,
+.input-group:focus-within .form-control {
+    border-color: var(--color-yellow);
+}
+
+/* =========================================
+   PAGE ACCUEIL - HERO
+   ========================================= */
+.hero-section {
+    min-height: 80vh;
+    background: linear-gradient(rgba(15, 23, 42, 0.7), rgba(15, 23, 42, 0.8)),
+                url('/assets/images/login-image.jpg') no-repeat center center / cover;
+    display: flex;
+    align-items: center;
+    padding: 100px 0;
+    margin-top: -70px;
+}
+
+/* =========================================
+   CARDS & STATS
+   ========================================= */
+.stats-box {
+    transition: all 0.3s ease;
+    border-radius: 20px;
+    padding: 40px 25px;
+    background: #fff;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05) !important;
+}
+
+.hover-card {
+    transition: 0.2s ease-in-out;
+    cursor: pointer;
+}
+
+.hover-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+}
+
+.badge-status {
+    font-size: 0.8rem;
+    padding: 6px 12px;
+    border-radius: 20px;
+}
+
+.badge-role {
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+}
+
+.progress {
+    height: 12px;
+    border-radius: 20px;
+}
+
+/* =========================================
+   CALENDRIER
+   ========================================= */
+.calendar-grid {
+    display: grid;
+   grid-template-columns: repeat(5, 1fr);
+    border: 1px solid #ddd;
+    background: #fff;
+    border-radius: 12px;
+}
+
+.calendar-header {
+    background: #212529;
+    color: #fff;
+    padding: 12px;
+    text-align: center;
+    font-weight: bold;
+    border: 0.5px solid #444;
+}
+
+.time-slot {
+    background: #f8f9fa;
+    padding: 25px 5px;
+    text-align: center;
+    border: 0.5px solid #eee;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.cell {
+    border: 0.5px solid #eee;
+    min-height: 150px;
+    padding: 8px;
+}
+
+.event {
+    padding: 8px;
+    border-radius: 10px;
+    font-size: 0.75rem;
+    margin-bottom: 8px;
+    color: #000;
+}
+
+.status-prevue   { background: #d1e7dd; border-left: 5px solid #198754; }
+.status-annulee  { background: #f8d7da; border-left: 5px solid #dc3545; }
+.status-terminee { background: #e2e3e5; border-left: 5px solid #6c757d; }
+
+.event-title { font-weight: bold; }
+.event-meta  { font-size: 0.7rem; opacity: 0.8; }
+.event-actions { margin-top: 6px; display: flex; gap: 4px; }
+
+/* =========================================
+   TABLEAUX
+   ========================================= */
+th.sortable:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.clickable-row { cursor: pointer; }
+.clickable-row:hover { background-color: #f1f3f5; }
+
+/* =========================================
+   MODE SOMBRE
+   ========================================= */
+[data-theme="dark"] {
+  background-color: #1a1a2e !important;
+  color: #e0e0e0 !important;
+}
+
+[data-theme="dark"] .card {
+  background-color: #16213e !important;
+  color: #e0e0e0 !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+[data-theme="dark"] .content {
+  background-color: #1a1a2e !important;
+}
+
+[data-theme="dark"] .bg-light {
+  background-color: #1a1a2e !important;
+}
+
+[data-theme="dark"] .text-muted {
+  color: rgba(255, 255, 255, 0.55) !important;
+}
+
+[data-theme="dark"] .form-label {
+  color: rgba(255, 255, 255, 0.55) !important;
+}
+
+[data-theme="dark"] .form-check-label {
+  color: #e0e0e0 !important;
+}
+
+[data-theme="dark"] .small.text-muted {
+  color: rgba(255, 255, 255, 0.45) !important;
+}
+
+[data-theme="dark"] .btn-outline-secondary {
+  color: #e0e0e0 !important;
+  border-color: rgba(255, 255, 255, 0.25) !important;
+}
+
+[data-theme="dark"] .btn-outline-secondary:hover {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+[data-theme="dark"] .table {
+  color: #e0e0e0 !important;
+}
+
+[data-theme="dark"] .table thead.table-dark {
+  background-color: #0f0f1a !important;
+}
+
+[data-theme="dark"] .border-bottom {
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+[data-theme="dark"] .bg-white {
+  background-color: #16213e !important;
+}
+
+[data-theme="dark"] input,
+[data-theme="dark"] select,
+[data-theme="dark"] textarea {
+  background-color: #0f0f1a !important;
+  color: #e0e0e0 !important;
+  border-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+[data-theme="dark"] input::placeholder {
+  color: rgba(255, 255, 255, 0.35) !important;
+}
+
+/* disable animations globally */
+.no-animations * {
+  transition: none !important;
+  animation: none !important;
+}
+@keyframes fadeInUp   { from { opacity:0; transform:translateY(30px); } to { opacity:1; transform:translateY(0); } }
+@keyframes fadeInLeft { from { opacity:0; transform:translateX(-30px); } to { opacity:1; transform:translateX(0); } }
+@keyframes fadeInRight{ from { opacity:0; transform:translateX(30px); } to { opacity:1; transform:translateX(0); } }
+@keyframes pulse      { 0%,100% { transform:scale(1); } 50% { transform:scale(1.04); } }
+@keyframes float      { 0%,100% { transform:translateY(0); } 50% { transform:translateY(-8px); } }
+@keyframes countUp    { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
+
+.anim-fade-up   { animation: fadeInUp   0.7s ease both; }
+.anim-fade-left { animation: fadeInLeft 0.7s ease both; }
+.anim-fade-right{ animation: fadeInRight 0.7s ease both; }
+.anim-float     { animation: float 3s ease-in-out infinite; }
+.anim-pulse-btn { animation: pulse 2.5s ease-in-out infinite; }
+.anim-count     { animation: countUp 0.6s ease both; }
+
+.delay-1 { animation-delay: 0.1s; }
+.delay-2 { animation-delay: 0.2s; }
+.delay-3 { animation-delay: 0.3s; }
+.delay-4 { animation-delay: 0.4s; }
+.delay-5 { animation-delay: 0.5s; }
+.delay-6 { animation-delay: 0.6s; }
+
+.hover-lift { transition: transform 0.25s ease, box-shadow 0.25s ease; }
+.hover-lift:hover { transform: translateY(-6px); box-shadow: 0 16px 40px rgba(0,0,0,0.12) !important; }
+
+.feature-icon-wrap { transition: transform 0.3s ease; }
+.hover-card:hover .feature-icon-wrap { transform: scale(1.15) rotate(-5deg); }
+
+/* style.css */
+.page-title {
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+  letter-spacing: -0.02em;
+}

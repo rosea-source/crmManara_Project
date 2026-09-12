@@ -1,0 +1,110 @@
+<div class="d-flex">
+  <app-sidebar-admin></app-sidebar-admin>
+
+  <div class="content flex-grow-1 p-4 p-lg-5">
+
+    <h1 class="fw-bold mb-1">Paramètres du Système</h1>
+    <p class="text-muted mb-5">Personnalisez votre interface d'administration Manara</p>
+
+    <div class="row g-4">
+
+      <!-- APPARENCE -->
+      <div class="col-md-6">
+        <div class="card border-0 shadow-sm rounded-4 p-4 h-100">
+
+          <h5 class="fw-bold mb-4">
+            <i class="bi bi-palette me-2 text-primary"></i>Apparence
+          </h5>
+
+          <!-- THEME -->
+          <label class="form-label small fw-bold text-uppercase text-muted">
+            Mode d'affichage
+          </label>
+
+          <div class="d-flex gap-3 mb-4">
+
+            <input type="radio" class="btn-check"
+                   name="themeMode"
+                   id="lightMode"
+                   value="light"
+                   [(ngModel)]="theme"
+                   (change)="applyTheme()">
+
+            <label class="btn btn-outline-secondary rounded-3 p-3 flex-grow-1" for="lightMode">
+              <i class="bi bi-sun fs-4 d-block mb-1"></i> Clair
+            </label>
+
+            <input type="radio" class="btn-check"
+                   name="themeMode"
+                   id="darkMode"
+                   value="dark"
+                   [(ngModel)]="theme"
+                   (change)="applyTheme()">
+
+            <label class="btn btn-outline-secondary rounded-3 p-3 flex-grow-1" for="darkMode">
+              <i class="bi bi-moon-stars fs-4 d-block mb-1"></i> Sombre
+            </label>
+
+          </div>
+
+        </div>
+      </div>
+
+      <!-- INTERFACE -->
+      <div class="col-md-6">
+        <div class="card border-0 shadow-sm rounded-4 p-4 h-100">
+
+          <h5 class="fw-bold mb-4">
+            <i class="bi bi-layout-sidebar-inset me-2 text-primary"></i>Interface
+          </h5>
+
+          <!-- SIDEBAR -->
+          <div class="form-check form-switch mb-4">
+            <input class="form-check-input"
+                   type="checkbox"
+                   [(ngModel)]="compactSidebar"
+                   (change)="toggleSidebar()">
+
+            <label class="form-check-label fw-bold">
+              Barre latérale compacte
+            </label>
+
+            <p class="small text-muted">
+              Réduit la largeur du menu pour plus d'espace de travail.
+            </p>
+          </div>
+
+          <!-- ANIMATIONS -->
+          <div class="form-check form-switch mb-4">
+              <input class="form-check-input"
+                    type="checkbox"
+                    [(ngModel)]="animations"
+                    (change)="toggleAnimations()">
+
+              <label class="form-check-label fw-bold">
+                Animations fluides
+              </label>
+
+              <p class="small text-muted">
+                Active les effets de survol et transitions sur les cartes.
+              </p>
+            </div>
+
+        </div>
+      </div>
+
+    </div>
+
+    <!-- SAVE BUTTON -->
+    <div class="mt-4 text-end">
+      <button class="btn btn-dark rounded-pill px-5 py-2 fw-bold shadow"
+              (click)="saveSettings()">
+
+        <i class="bi bi-check2-circle me-2"></i>
+        {{ saved ? 'Sauvegardé !' : 'Appliquer les changements' }}
+
+      </button>
+    </div>
+
+  </div>
+</div>
